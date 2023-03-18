@@ -14,20 +14,32 @@ export default function Login(props) {
   }
 
   const loginSubmit = () => {
-    if (emailValue === ("sdasds")) {// Senha encontrada, prossegue com o login
+    if (emailValue === "ceo@gmail.com" && passwordValue === "123") {// Senha encontrada, prossegue com o login
       window.alert("parabens")
-    } else {//Caso a senha não seja encontrada, exibe uma mensagem de erro
+    }
+    else if (emailValue ==="client@gmail.com" && passwordValue === "321"){
+      window.alert("parabens1")
+    }
+     else {//Caso a senha não seja encontrada, exibe uma mensagem de erro
       window.alert("Email ou Senha incorreta")
     }
+  }
 
+  const ceoEmailPassword = () =>{ //completa o email e a senha com a de um ceo
+    setEmailValue("ceo@gmail.com")
+    setPasswordValue("123")
+  }
+  const clientEmailPassword = () =>{ //completa o email e a senha com a de um cliente
+    setEmailValue("client@gmail.com")
+    setPasswordValue("321")
+  }
+  
 
     return (
-      <div className="Auth-form-container">
-        <form className="Auth-form">
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
-    
-            </div>
+      <div className="Login-form-container">
+        <form className="Login-form">
+          <div className="Login-form-content">
+            <h3 className="Login-form-title">Sign In</h3>
             <div className="form-group mt-3">
               <label>Email address</label>
               <input
@@ -53,14 +65,17 @@ export default function Login(props) {
                 Submit
               </button>
             </div>
-            <p className="text-center mt-2">
+            <p className="forgot-password text-right mt-2">
               Forgot <a href="kkk">password?</a>
             </p>
+            <div className=" d-md-flex justify-content-md-end ">
+              <button className="btn btn-info" type="button" onClick={ceoEmailPassword}>CEO</button>
+              <button className="btn btn-info mx-2" type="button" onClick={clientEmailPassword}>Client</button>
+            </div>
+
           </div>
         </form>
       </div>
     )
-  }
-
-
+  
 }
