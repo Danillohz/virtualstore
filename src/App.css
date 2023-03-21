@@ -1,41 +1,87 @@
 .App {
-    background-color: white;
-  }
-  
-  .Login-form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-  }
-  
-  .Login-form {
-    width: 420px;
-    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-radius: 8px;
-    background-color: white;
-  }
-  
-  .Login-form-content {
-    padding-left: 12%;
-    padding-right: 12%;
-  }
-  
-  .Login-form-title {
-    text-align: center;
-    margin-bottom: 1em;
-    font-size: 24px;
-    color: rgb(34, 34, 34);
-    font-weight: 800;
-  }
-  
-  label {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgb(34, 34, 34);
-  }
+  background-color: white;
 
- 
+}
+
+
+.Container-Home{
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.137);
+}
+
+.Login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Login-form {
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.Login-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.Login-form-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+}
+
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #0D0D0D;
+}
+
+.Body-Ceo{
+  background-color:  #93A651;
+  height: 100vh;
+}
+
+.Body-Ceo > h1{
+  color: white;
+  padding: 10px;
+}
+
+.Button-Create-Itens{
+  position: relative;
+  width: 60px;
+  height: 100%;
+  background-color: transparent;
+  right: 13px;
+  border: none;
+  color: white;
+  font-size: 40px;
+}
+
+.Button-Create-Itens:hover{
+  background-color: #232323;
+}
+
+.Img-Canudo{
+  position: absolute;
+  width: 90%;
+  height: 250px;
+  left: 4%;
+  transform: rotate(-14deg)
+}
+

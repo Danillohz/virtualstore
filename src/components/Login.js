@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login(props) {
 
   const [emailValue, setEmailValue] = useState("")
   const [passwordValue, setPasswordValue] = useState("")
 
-
+  const navigate = useNavigate();
+  
   const handleEmailChange = (event) => { // Função que será chamada toda vez que o usuário digitar algo no campo de e-mail
     setEmailValue(event.target.value);
   }
@@ -13,12 +15,14 @@ export default function Login(props) {
     setPasswordValue(event.target.value);
   }
 
+  //Redireciona você para onde seu email/senha tenha acesso
   const loginSubmit = () => {
     if (emailValue === "ceo@gmail.com" && passwordValue === "123") {// Senha encontrada, prossegue com o login
-      window.alert("parabens")
+      
+      navigate("/ceoview")
     }
     else if (emailValue ==="client@gmail.com" && passwordValue === "321"){
-      window.alert("parabens1")
+      navigate("/clientview")
     }
      else {//Caso a senha não seja encontrada, exibe uma mensagem de erro
       window.alert("Email ou Senha incorreta")
@@ -65,12 +69,9 @@ export default function Login(props) {
                 Submit
               </button>
             </div>
-            <p className="forgot-password text-right mt-2">
-              Forgot <a href="kkk">password?</a>
-            </p>
             <div className=" d-md-flex justify-content-md-end ">
-              <button className="btn btn-info" type="button" onClick={ceoEmailPassword}>CEO</button>
-              <button className="btn btn-info mx-2" type="button" onClick={clientEmailPassword}>Client</button>
+              <button className="btn btn-info mt-3" type="button" onClick={ceoEmailPassword}>CEO</button>
+              <button className="btn btn-info mx-2 mt-3" type="button" onClick={clientEmailPassword}>Client</button>
             </div>
 
           </div>
