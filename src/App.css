@@ -116,15 +116,22 @@ header {
 
 .Container-CreateItens {
   position: absolute;
+  width: 82%;
+  max-height: 100%;
+  left: 50%;
   background-color: #2c2828;
   border: 3px rgb(81, 81, 81) solid;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.403);
+
   z-index: 5;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
 }
 
 .Container-Img-Product{
-  width: 30%;
+  position: relative;
+  width: 35%;
+  float: right;
+  margin: 5px -7px;
 }
 
 input[type="file"]{
@@ -136,14 +143,14 @@ input[type="file"]{
   display: block;
   width: 100%;
   padding: 10px 0px;
-  margin: 8px auto;
+  margin: 0px auto;
   background-color: #333;
   color: #fff;
   text-align: center;
   
 }
 
-.Img-Product img{
+.Img-Product img{ 
   width: 100%;
   margin: auto;
   border: 2px solid rgb(0, 255, 157);

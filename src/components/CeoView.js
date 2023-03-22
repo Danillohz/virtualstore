@@ -19,10 +19,10 @@ function CeoView() {
         const file = event.target.files[0];
         const reader = new FileReader();
 
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                setImgProduct(reader.result);
-          
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setImgProduct(reader.result);
+
         }
     }
 
@@ -45,12 +45,13 @@ function CeoView() {
                 <h1>Cardápio</h1>
 
                 {visibleCreateItens && (
-                    <div className="container-sm position-absolute top-50 start-50 Container-CreateItens">
-                        <div className="position-absolute top-0 end-0 m-2 Container-Img-Product">
-
+                    <div className="container-sm Container-CreateItens">
+                        <div className="Container-Img-Product  ">
+                        
                             {imgProductValue && (
                                 <div className="Img-Product">
-                                    <img src={imgProductValue} alt="Imagem Selecionada" className="" />
+                                    
+                                    <img src={imgProductValue} alt="Imagem Selecionada" className="img-fluid" />
                                 </div>
                             )}
 
@@ -59,41 +60,23 @@ function CeoView() {
                         </div>
 
                         <div className="w-75">
-                            <div className="w-75 m-2">
-                                <label htmlFor="InputNameProductId" className="form-label">Nome do produto:</label>
-                                <input type="text" className="form-control" name="NameProduct" id="InputNameProductId"></input>
+                            <div class="w-75 m-2">
+                                <label for="InputNameProductId" class="form-label">Nome do produto:</label>
+                                <input type="text" class="form-control form-control-sm" name="NameProduct" id="InputNameProductId"/>
                             </div>
-                            <div className="w-75 m-2">
-                                <label htmlFor="InputProductDescriptionId" className="form-label">Descrição do produto:</label>
-                                <textarea className="form-control" id="InputProductDescriptionId" rows="6"></textarea>
+                            <div class="w-75 m-2">
+                                <label for="InputProductDescriptionId" class="form-label">Descrição do produto:</label>
+                                <textarea class="form-control form-control-sm" id="InputProductDescriptionId" rows="6"></textarea>
                             </div>
-                            <div className="w-75 m-2">
-
-                                <div className="w-100">
-                                    <label className="form-label">Valor do produto:</label>
-                                    <div className="input-group mb-3 w-100">
-                                        <button type="button" className="btn btn-outline-secondary">Action</button>
-                                        <button type="button" className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <span className="visually-hidden">Toggle Dropdown</span>
-                                        </button>
-                                        <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="a">$</a></li>
-                                            <li><a className="dropdown-item" href="a">Another action</a></li>
-                                            <li><a className="dropdown-item" href="a">Something else here</a></li>
-                                            <li><hr className="dropdown-divider" /></li>
-                                            <li><a className="dropdown-item" href="a">Separated link</a></li>
-                                        </ul>
-                                        <input type="number" className="form-control" />
-                                    </div>
+                            <div class="w-75 m-2">
+                                <div class="w-100">
+                                    <label class="form-label">Valor do produto:</label>
+                                    <input type="number" className="form-control form-control-sm mb-4 " />
                                 </div>
-
-
-
-
-
                             </div>
-                        </div>
 
+                            <button type="submit" className="btn btn-light mb-4 ms-2">Enviar</button>
+                        </div>
                     </div>
                 )}
 
