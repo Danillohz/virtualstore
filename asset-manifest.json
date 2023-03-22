@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.ce6413c4.css",
-    "main.js": "/virtualstore/static/js/main.d4d03e8f.js",
+    "main.css": "/virtualstore/static/css/main.21d59c0f.css",
+    "main.js": "/virtualstore/static/js/main.45afecc0.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/Logo-Caipirinha-Preto-Meia.png": "/virtualstore/static/media/Logo-Caipirinha-Preto-Meia.46a48be9a4188032315a.png",
     "index.html": "/virtualstore/index.html",
-    "main.ce6413c4.css.map": "/virtualstore/static/css/main.ce6413c4.css.map",
-    "main.d4d03e8f.js.map": "/virtualstore/static/js/main.d4d03e8f.js.map",
+    "main.21d59c0f.css.map": "/virtualstore/static/css/main.21d59c0f.css.map",
+    "main.45afecc0.js.map": "/virtualstore/static/js/main.45afecc0.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce6413c4.css",
-    "static/js/main.d4d03e8f.js"
+    "static/css/main.21d59c0f.css",
+    "static/js/main.45afecc0.js"
   ]
 }
