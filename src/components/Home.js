@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 //Página inicial
-const Home = () =>{
+function Home() {
     return(
 
             <div className="d-flex justify-content-center">
-                <div class="container position-absolute top-50 start-50 translate-middle w-25  align-items-center justify-content-center Container-Home">
+                <div className="container position-absolute top-50 start-50 translate-middle w-25  align-items-center justify-content-center Container-Home">
                 
                         <h1>Opss...</h1>
-                        <p>É necessário efetuar um <a href="/login">login</a> para continuar</p>
+                        <p>É necessário efetuar um <Link to="/login">login</Link> para continuar</p>
                     </div>
             </div>
 

@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
+
 .App {
   background-color: white;
 
 }
 
 
-.Container-Home{
+.Container-Home {
   background-color: rgb(255, 255, 255);
   padding: 20px;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.137);
@@ -49,39 +51,88 @@ label {
 header {
   width: 100%;
   height: 60px;
-  background-color: #0D0D0D;
+  background-color: #201e1e;
 }
 
-.Body-Ceo{
-  background-color:  #93A651;
+.Body-Ceo {
+  background-color: #65A605;
   height: 100vh;
 }
 
-.Body-Ceo > h1{
-  color: white;
+.Body-Ceo>h1 {
+  color: #ffffff;
   padding: 10px;
+  text-align: center;
+  font-family: 'Delicious Handrawn', cursive;
+  font-size: 48px;
 }
 
-.Button-Create-Itens{
+.Button-Create-Itens {
   position: relative;
   width: 60px;
   height: 100%;
   background-color: transparent;
   right: 13px;
+  top: -3px;
   border: none;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   font-size: 40px;
 }
 
-.Button-Create-Itens:hover{
+.Button-Create-Itens:hover {
   background-color: #232323;
 }
 
-.Img-Canudo{
-  position: absolute;
-  width: 90%;
-  height: 250px;
-  left: 4%;
-  transform: rotate(-14deg)
+.Img-Logo {
+  width: 150px;
+  height: 60px;
+  border: 1px solid #241c1c;
 }
 
+.Img-Logo img {
+  width: 110px;
+  height: 59px;
+  border: 1px solid #241c1c;
+}
+
+.Ornament-Menu {
+  position: relative;
+  width: 75%;
+  height: 35px;
+  left: 50%;
+  top: 20px;
+  border-top: 8px solid #241c1c;
+  border-left: 8px solid #241c1c;
+  border-right: 8px solid #241c1c;
+  border-radius: 100px 100px 0px 0px;
+
+  transform: translate(-50%);
+  z-index: 1;
+}
+
+.Container-CreateItens {
+  position: absolute;
+  width: 82%;
+  height: 65%;
+  left: 50%;
+  background-color: #2c2828;
+  border: 3px rgb(81, 81, 81) solid;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.403);
+
+  z-index: 5;
+  transform: translate(-50%);
+}
+
+
+
+.Img-Product{
+  width: 35%;
+  max-width: 300px;
+  position: absolute;
+  top: 55px;
+  right: 10px;
+}

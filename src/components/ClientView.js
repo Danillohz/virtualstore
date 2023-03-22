@@ -1,5 +1,5 @@
 
-const ClientView = () =>{
+function ClientView() {
     return(
         <div>
             <p>222</p>

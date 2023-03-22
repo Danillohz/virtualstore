@@ -8,15 +8,15 @@ export default function Login(props) {
 
   const navigate = useNavigate();
   
-  const handleEmailChange = (event) => { // Função que será chamada toda vez que o usuário digitar algo no campo de e-mail
+  function handleEmailChange(event) { // Função que será chamada toda vez que o usuário digitar algo no campo de e-mail
     setEmailValue(event.target.value);
   }
-  const handlePasswordChange = (event) => { // Função que será chamada toda vez que o usuário digitar algo no campo de e-mail
+  function handlePasswordChange(event) { // Função que será chamada toda vez que o usuário digitar algo no campo de e-mail
     setPasswordValue(event.target.value);
   }
 
   //Redireciona você para onde seu email/senha tenha acesso
-  const loginSubmit = () => {
+  function loginSubmit() {
     if (emailValue === "ceo@gmail.com" && passwordValue === "123") {// Senha encontrada, prossegue com o login
       
       navigate("/ceoview")
@@ -29,11 +29,11 @@ export default function Login(props) {
     }
   }
 
-  const ceoEmailPassword = () =>{ //completa o email e a senha com a de um ceo
+  function ceoEmailPassword() { //completa o email e a senha com a de um ceo
     setEmailValue("ceo@gmail.com")
     setPasswordValue("123")
   }
-  const clientEmailPassword = () =>{ //completa o email e a senha com a de um cliente
+  function clientEmailPassword() { //completa o email e a senha com a de um cliente
     setEmailValue("client@gmail.com")
     setPasswordValue("321")
   }
