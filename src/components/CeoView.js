@@ -9,18 +9,21 @@ function CeoView() {
 
     function toggleVisibleCreateItem() {
         setVisibleCreateItens(!visibleCreateItens)
-        
-    } 
+
+    }
 
     //da um valor para imgProductValue e muda a imagem com o mesmo valor
     function handleImgProduct(event) {
+
+
         const file = event.target.files[0];
         const reader = new FileReader();
 
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setImgProduct(reader.result);
-        };
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setImgProduct(reader.result);
+          
+        }
     }
 
     console.log(imgProductValue)
@@ -40,18 +43,57 @@ function CeoView() {
                 </header>
 
                 <h1>Cardápio</h1>
-                
+
                 {visibleCreateItens && (
-                    <div className="Container-CreateItens">
-                        <div class="input-group mb-2 mt-2 Container-Input-File ">
-                            <input type="file" class="form-control" id="inputGroupFile02 inputGroup-sizing-sm" onChange={handleImgProduct} />
-                            <label class="input-group-text" for="inputGroupFile02"></label>
+                    <div className="container-sm position-absolute top-50 start-50 Container-CreateItens">
+                        <div className="position-absolute top-0 end-0 m-2 Container-Img-Product">
+
+                            {imgProductValue && (
+                                <div className="Img-Product">
+                                    <img src={imgProductValue} alt="Imagem Selecionada" className="" />
+                                </div>
+                            )}
+
+                            <label className="Label-Img-product" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
+                            <input type="file" className="Input-Img-Product" id="Input-Img-Product-Id" name="Input-Img-Product" onChange={handleImgProduct}></input>
                         </div>
-                        {imgProductValue && (
-                            <div className="Img-Product">
-                                <img src={imgProductValue} alt="Imagem Selecionada" className=" img-fluid" />
+
+                        <div className="w-75">
+                            <div className="w-75 m-2">
+                                <label htmlFor="InputNameProductId" className="form-label">Nome do produto:</label>
+                                <input type="text" className="form-control" name="NameProduct" id="InputNameProductId"></input>
                             </div>
-                        )}
+                            <div className="w-75 m-2">
+                                <label htmlFor="InputProductDescriptionId" className="form-label">Descrição do produto:</label>
+                                <textarea className="form-control" id="InputProductDescriptionId" rows="6"></textarea>
+                            </div>
+                            <div className="w-75 m-2">
+
+                                <div className="w-100">
+                                    <label className="form-label">Valor do produto:</label>
+                                    <div className="input-group mb-3 w-100">
+                                        <button type="button" className="btn btn-outline-secondary">Action</button>
+                                        <button type="button" className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span className="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul className="dropdown-menu">
+                                            <li><a className="dropdown-item" href="a">$</a></li>
+                                            <li><a className="dropdown-item" href="a">Another action</a></li>
+                                            <li><a className="dropdown-item" href="a">Something else here</a></li>
+                                            <li><hr className="dropdown-divider" /></li>
+                                            <li><a className="dropdown-item" href="a">Separated link</a></li>
+                                        </ul>
+                                        <input type="number" className="form-control" />
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+
                     </div>
                 )}
 
