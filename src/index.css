@@ -4,8 +4,12 @@
 }
 
 body, html{
-  width: 100vw;
- 
+  width: 100%;
+}
+
+body{
+  
+  height: 100%;
 }
 
 

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap');
 
+*{
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   background-color: white;
 
@@ -9,29 +14,31 @@
 .Container-Home {
   background-color: rgb(255, 255, 255);
   padding: 20px;
+  
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.137);
 }
 
 .Login-form-container {
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
+  top: -5%;
   width: 100vw;
   height: 100vh;
 }
 
 .Login-form {
-  width: 420px;
+  width: 430px;
   box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 20px;
   border-radius: 8px;
   background-color: white;
 }
 
 .Login-form-content {
-  padding-left: 12%;
-  padding-right: 12%;
+  padding: 0px 12%;
 }
 
 .Login-form-title {
@@ -54,12 +61,13 @@ header {
   background-color: #201e1e;
 }
 
-.Body-Ceo {
+.Container-body-ceo {
+  width: 100%;
+  height: 100%;
   background-color: #65A605;
-  height: 100vh;
 }
 
-.Body-Ceo>h1 {
+.Container-body-ceo > h1 {
   color: #ffffff;
   padding: 10px;
   text-align: center;
@@ -97,21 +105,6 @@ header {
   width: 110px;
   height: 59px;
   border: 1px solid #241c1c;
-}
-
-.Ornament-Menu {
-  position: relative;
-  width: 75%;
-  height: 35px;
-  left: 50%;
-  top: 20px;
-  border-top: 8px solid #241c1c;
-  border-left: 8px solid #241c1c;
-  border-right: 8px solid #241c1c;
-  border-radius: 100px 100px 0px 0px;
-
-  transform: translate(-50%);
-  z-index: 1;
 }
 
 .Container-CreateItens {
@@ -160,3 +153,34 @@ input[type="file"]{
 .form-label{
   color: rgb(196, 194, 194);
 }
+
+.Ornament-Menu {
+  position: relative;
+  width: 75%;
+  max-height: 100%;
+  margin: auto;
+  background-color: #f0e5dd;
+  border: 8px solid #241c1c;
+  border-radius: 25px 25px 10px 10px;
+  z-index: 1;
+}
+
+.ItemCardápio{
+  display: flex;
+  width: 100%;
+  margin: 30px 0px 0px 0px;
+  align-items: center;
+  text-align: center;
+  
+}
+.ItemCardápio img{
+  width: 100%;
+}
+
+.ItemCardápio p {
+  margin: 0px;
+}
+
+
+
+

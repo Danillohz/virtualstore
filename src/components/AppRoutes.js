@@ -7,16 +7,18 @@ import CeoView from "./CeoView"
 import ClientView from "./ClientView";
 
 
+
 function AppRoutes() {
     return (
       
-            
+            <>
                 <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" background="blue" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/ceoview" element={<CeoView />} />
                         <Route path="/clientview" element={<ClientView />} />
                 </Routes>
+            </> 
           
     )
 }
