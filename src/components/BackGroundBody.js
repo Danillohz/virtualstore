@@ -10,9 +10,9 @@ export default function BackgroundColor() {
           : location.pathname === '/login'
           ? 'white'
           : location.pathname === '/ceoview'
-          ? '#65A605'
+          ? '#729c47'
           : location.pathname === '/clientview'
-          ? '#65A605'
+          ? '#729c47'
           : null;
     
         document.body.style.backgroundColor = background || '';

@@ -13,7 +13,7 @@ function CeoView() {
 
     const [priceProductValue, setPriceProductValue] = useState(0);
     const [nameProductValue, setNameProductValue] = useState("");
-    const [descriptionProductValue, setDescriptionProductValue] = useState("")
+    const [selectItemTypeValue, setSelectItemTypeValue] = useState("")
 
     
 
@@ -37,24 +37,28 @@ function CeoView() {
         }
     }
 
-    const handlePrice = (event) => {
-        setPriceProductValue(event.target.value);
+    //muda o valor quando feito qualquer ação nos botões
+
+    const handlePrice = (props) => {
+        setPriceProductValue(props.target.value)
+       
     }
     const handleName = (event) => {
         setNameProductValue(event.target.value);
     }
-    const handleDescription = (event) => {
-        setDescriptionProductValue(event.target.value);
+    const handleSelectItem = (event) => {
+        setSelectItemTypeValue(event.target.value);
     }
 
-
     const handleClick = () => {
+
         const item = {
             id: numberId,
             name: nameProductValue,
             image: imgProductValue,
-            descrição: descriptionProductValue,
+            type: selectItemTypeValue,
             price: priceProductValue
+
         };
 
         setSelectedItems([...selectedItems, item]);
@@ -83,44 +87,42 @@ function CeoView() {
 
                 {visibleCreateItens && (
                     <div className="container-sm Container-CreateItens">
-                        <div className="Container-Img-Product  ">
-
-                            {imgProductValue && (
-                                <div className="Img-Product">
-
-                                    <img src={imgProductValue} alt="Imagem Selecionada" className="img-fluid" />
+                        <div className="ms-1">
+                            <div className="Container-Img-Product  ">
+                                {imgProductValue && (
+                                    <div className="Img-Product">
+                                        <img src={imgProductValue} alt="Imagem Selecionada" className="img-fluid" />
+                                    </div>
+                                )}
+                                <label className="Label-Img-product" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
+                                <input type="file" className="Input-Img-Product" id="Input-Img-Product-Id" name="Input-Img-Product"
+                                onChange={handleImgProduct}>
+                            
+                                </input>
+                            </div>
+                            <div className="w-75">
+                                <div className="w-75">
+                                    <label htmlFor="InputNameProductId" className="form-label">Nome do produto:</label>
+                                    <input type="text" className="form-control form-control-sm" name="NameProduct" id="InputNameProductId" value={nameProductValue} onChange={handleName} />
                                 </div>
-                            )}
-
-                            <label className="Label-Img-product" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
-                            <input type="file" className="Input-Img-Product" id="Input-Img-Product-Id" name="Input-Img-Product" 
-                            onChange={handleImgProduct}>
-                                
-                            </input>
-                        </div>
-
-                        <div className="w-75">
-                            <div className="w-75 m-2">
-                                <label htmlFor="InputNameProductId" className="form-label">Nome do produto:</label>
-                                <input type="text" className="form-control form-control-sm" name="NameProduct" id="InputNameProductId" value={nameProductValue} onChange={handleName} />
-                            </div>
-                            <div className="w-75 m-2">
-
-                                <label htmlFor="InputProductDescriptionId" className="form-label">Descrição do produto:</label>
-                                <textarea className="form-control form-control-sm" id="InputProductDescriptionId" rows="6"
-                                    value={descriptionProductValue} 
-                                    onChange={handleDescription}>
-                                </textarea>
-
-                            </div>
-                            <div className="w-75 m-2">
-                                <div className="w-100">
+                            
+                                    <label htmlFor="Select-TypeComponent" className="form-label">Tipo do produto:</label>
+                                <div className="w-50">
+                                    <select className="form-select" id="Select-TypeComponent" value={selectItemTypeValue} onChange={handleSelectItem}>
+                                        <option value="">Selecione</option>
+                                        <option value="Fruta">Fruta</option>
+                                        <option value="Bebida">Bebida</option>
+                                        <option value="Adicional">Adicional</option>
+                                    </select>
+                                </div>
+                            
                                     <label className="form-label">Valor do produto:</label>
-                                    <input type="number" className="form-control form-control-sm mb-4 " value={priceProductValue} onChange={handlePrice} />
+                                <div className="w-25">
+                                        <input type="number" className="form-control form-control-sm mb-4 " value={priceProductValue} onChange={handlePrice} />
+                            
                                 </div>
-                            </div>
-
-                            <button type="submit" className="btn btn-light mb-4 ms-2" onClick={handleClick}>Enviar</button>
+                                <button type="submit" className="btn btn-light mb-4" onClick={handleClick}>Enviar</button>
+                        </div>
                         </div>
                     </div>
                 )}
@@ -135,12 +137,14 @@ function CeoView() {
 
                                 
                                 {selectedItems.map(item => (
-                                    <div className="col-sm-4" key={item.id}>
+                                    <div className="col-4" key={item.id}>
                                         
                                             <img src={item.image} alt="imgitem"></img>
-                                            <p>{item.name}</p>
-                                            <p>{item.descrição}</p>
-                                            <p>{item.price}</p>
+                                            <div className="Container-CaracteristicasItens"> 
+                                                <p className="Name-Product">{item.name}</p>
+                                                <p className="Description-Product">{item.type}</p>
+                                                <p className="Price-Product">{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                            </div>
                                       
                                     </div>
                                 ))}
