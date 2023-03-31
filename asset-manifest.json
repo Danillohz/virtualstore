@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.93f60342.css",
-    "main.js": "/virtualstore/static/js/main.22178769.js",
+    "main.css": "/virtualstore/static/css/main.334f5300.css",
+    "main.js": "/virtualstore/static/js/main.e461549b.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/Logo-Caipirinha-Preto-Meia.png": "/virtualstore/static/media/Logo-Caipirinha-Preto-Meia.46a48be9a4188032315a.png",
     "index.html": "/virtualstore/index.html",
-    "main.93f60342.css.map": "/virtualstore/static/css/main.93f60342.css.map",
-    "main.22178769.js.map": "/virtualstore/static/js/main.22178769.js.map",
+    "main.334f5300.css.map": "/virtualstore/static/css/main.334f5300.css.map",
+    "main.e461549b.js.map": "/virtualstore/static/js/main.e461549b.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.93f60342.css",
-    "static/js/main.22178769.js"
+    "static/css/main.334f5300.css",
+    "static/js/main.e461549b.js"
   ]
 }
