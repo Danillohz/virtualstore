@@ -2,22 +2,21 @@ import { useState } from "react"
 import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
 import imgVazia from "../imagens/image.png"
 let numberId = 0;
-
+const itemsSelected = undefined
 
 function CeoView() {
 
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
-    const [visibleEditItens, setVisibleEditItens] = useState(true);
+    const [visibleEditItens, setVisibleEditItens] = useState(false);
     const [imgProductValue, setImgProduct] = useState(imgVazia);
     const [selectedItems, setSelectedItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
-    const [checkBoxItems, setCheckBoxItems] = useState(false);
 
     const [priceProductValue, setPriceProductValue] = useState(0);
     const [nameProductValue, setNameProductValue] = useState("none");
     const [selectItemTypeValue, setSelectItemTypeValue] = useState("none")
 
-
+    
 
     //faz com que a criação dos itens apareça para o usuario
     function toggleVisibleCreateItem() {
@@ -82,15 +81,34 @@ function CeoView() {
     function handleCheckBoxChange(item) {
        
         item.selected = !item.selected
+        
+        //Ve se tem checkbox ativada se tiver torna visivel a barra para excluir e editar itens
+        const itemsSelected = selectedItems.filter(item => item.selected)
+        setVisibleEditItens(itemsSelected.length > 0)
+        console.log(itemsSelected)
     }
 
     //Deleta qualquer item que estiver checkbox(true)
 
-    const deletItemClick = () => {
+    const handleDeleteItemClick = () => {
+        setVisibleEditItens(itemsSelected?.length > 0)
+
         const itemsToKeep = selectedItems.filter(item => !item.selected );
         setSelectedItems(itemsToKeep);
+        
     }
 
+    //Edita qualquer item que estiver checkbox(true) Obs:edita todos se estiverem precionados
+
+    const handleEditItensClick = () => {
+        
+        if(itemsSelected !== undefined){
+            setVisibleEditItens(true)
+        }
+        else{
+            setVisibleEditItens(false)
+        }
+    }
 
     return (
         <>
@@ -99,12 +117,14 @@ function CeoView() {
 
             <div className=" Container-body-ceo">
                 <header className="container-fluid">
-                    <div className="position-absolute top-0 end-0 Img-Logo">
-                        <img src={imgLogoCaipirinha} alt="logo"></img>
-                    </div>
-                    <button type="button" className="Button-Create-Itens" onClick={toggleVisibleCreateItem}>
-                        +
-                    </button>
+                    
+                        <div className="position-absolute top-0 end-0  Img-Logo">
+                            <img src={imgLogoCaipirinha} alt="logo"></img>
+                        </div>
+                        <button type="button" className="Button-Create-Itens" onClick={toggleVisibleCreateItem}>
+                            +
+                        </button>
+                   
                 </header>
 
                 {visibleCreateItens && (
@@ -156,10 +176,10 @@ function CeoView() {
 
             {visibleEditItens && (
                 <div className="position-absolute end-0 translate-middle-y z-3 Container-btn-Edit-Delete">
-                    <div className="col"> <button className="btn btn-danger" type="button" onClick={deletItemClick}><span className="material-symbols-outlined">
+                    <div className="col"> <button className="btn btn-danger" type="button" onClick={handleDeleteItemClick}><span className="material-symbols-outlined">
                         close
                     </span></button> </div>
-                    <div className="col mt-2"> <button className="btn btn-warning" type="button" onClick={deletItemClick}><span className="material-symbols-outlined">
+                    <div className="col mt-2"> <button className="btn btn-warning" type="button" onClick={handleDeleteItemClick}><span className="material-symbols-outlined">
                         edit
                     </span></button></div>
                 </div>
@@ -183,7 +203,7 @@ function CeoView() {
                                             <li><p className="Price-Product">{item.price}</p></li>
                                             <div className="">
                                                 <label></label>
-                                                <input type="checkbox" className="position-absolute bottom-0 end-0" checked={item.selected} onChange={() => handleCheckBoxChange(item)}></input>
+                                                <input type="checkbox" className="position-absolute bottom-0 end-0" checked={item.select} onChange={() => handleCheckBoxChange(item)}></input>
                                             </div>
                                         </div>
 
