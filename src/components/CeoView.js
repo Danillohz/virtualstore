@@ -1,21 +1,23 @@
 import { useState } from "react"
-import { Link } from "react-router-dom";
 import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
-
+import imgVazia from "../imagens/image.png"
 let numberId = 0;
+
 
 function CeoView() {
 
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
-    const [imgProductValue, setImgProduct] = useState(null);
+    const [visibleEditItens, setVisibleEditItens] = useState(true);
+    const [imgProductValue, setImgProduct] = useState(imgVazia);
     const [selectedItems, setSelectedItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
+    const [checkBoxItems, setCheckBoxItems] = useState(false);
 
     const [priceProductValue, setPriceProductValue] = useState(0);
-    const [nameProductValue, setNameProductValue] = useState("");
-    const [selectItemTypeValue, setSelectItemTypeValue] = useState("")
+    const [nameProductValue, setNameProductValue] = useState("none");
+    const [selectItemTypeValue, setSelectItemTypeValue] = useState("none")
 
-    
+
 
     //faz com que a criação dos itens apareça para o usuario
     function toggleVisibleCreateItem() {
@@ -26,7 +28,7 @@ function CeoView() {
     //da um valor para imgProductValue e muda a imagem com o mesmo valor
     function handleImgProduct(event) {
 
-        
+
         const file = event.target.files[0];
         const reader = new FileReader();
 
@@ -39,9 +41,9 @@ function CeoView() {
 
     //muda o valor quando feito qualquer ação nos botões
 
-    const handlePrice = (props) => {
-        setPriceProductValue(props.target.value)
-       
+    const handlePrice = (event) => {
+        setPriceProductValue(event.target.value)
+
     }
     const handleName = (event) => {
         setNameProductValue(event.target.value);
@@ -50,26 +52,46 @@ function CeoView() {
         setSelectItemTypeValue(event.target.value);
     }
 
+    // cria o item na tela quando clickar no botão de Enviar
     const handleClick = () => {
+
+        const formattedPrice = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(priceProductValue)
 
         const item = {
             id: numberId,
             name: nameProductValue,
             image: imgProductValue,
             type: selectItemTypeValue,
-            price: priceProductValue
+            price: formattedPrice
 
         };
 
         setSelectedItems([...selectedItems, item]);
         setStockValue(stockValue - item.price);
 
+        console.log(selectedItems)
         numberId = numberId + 1;
-        
-        
-    }   
 
-    console.log(imgProductValue)
+    }
+
+    //identifica que item está selecionado
+
+    function handleCheckBoxChange(item) {
+       
+        item.selected = !item.selected
+    }
+
+    //Deleta qualquer item que estiver checkbox(true)
+
+    const deletItemClick = () => {
+        const itemsToKeep = selectedItems.filter(item => !item.selected );
+        setSelectedItems(itemsToKeep);
+    }
+
+
     return (
         <>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -96,8 +118,8 @@ function CeoView() {
                                 )}
                                 <label className="Label-Img-product" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
                                 <input type="file" className="Input-Img-Product" id="Input-Img-Product-Id" name="Input-Img-Product"
-                                onChange={handleImgProduct}>
-                            
+                                    onChange={handleImgProduct}>
+
                                 </input>
                             </div>
                             <div className="w-75">
@@ -105,8 +127,8 @@ function CeoView() {
                                     <label htmlFor="InputNameProductId" className="form-label">Nome do produto:</label>
                                     <input type="text" className="form-control form-control-sm" name="NameProduct" id="InputNameProductId" value={nameProductValue} onChange={handleName} />
                                 </div>
-                            
-                                    <label htmlFor="Select-TypeComponent" className="form-label">Tipo do produto:</label>
+
+                                <label htmlFor="Select-TypeComponent" className="form-label">Tipo do produto:</label>
                                 <div className="w-50">
                                     <select className="form-select" id="Select-TypeComponent" value={selectItemTypeValue} onChange={handleSelectItem}>
                                         <option value="">Selecione</option>
@@ -115,37 +137,56 @@ function CeoView() {
                                         <option value="Adicional">Adicional</option>
                                     </select>
                                 </div>
-                            
-                                    <label className="form-label">Valor do produto:</label>
+
+                                <label className="form-label">Valor do produto:</label>
                                 <div className="w-25">
-                                        <input type="number" className="form-control form-control-sm mb-4 " value={priceProductValue} onChange={handlePrice} />
-                            
+                                    <input type="number" className="form-control form-control-sm mb-4 " value={priceProductValue} onChange={handlePrice} />
+
                                 </div>
                                 <button type="submit" className="btn btn-light mb-4" onClick={handleClick}>Enviar</button>
-                        </div>
+                            </div>
                         </div>
                     </div>
                 )}
 
                 <h1>Cardápio</h1>
-                <Link to="/login">login</Link>
+
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+            {visibleEditItens && (
+                <div className="position-absolute end-0 translate-middle-y z-3 Container-btn-Edit-Delete">
+                    <div className="col"> <button className="btn btn-danger" type="button" onClick={deletItemClick}><span className="material-symbols-outlined">
+                        close
+                    </span></button> </div>
+                    <div className="col mt-2"> <button className="btn btn-warning" type="button" onClick={deletItemClick}><span className="material-symbols-outlined">
+                        edit
+                    </span></button></div>
+                </div>
+                )}
                 <div className="Ornament-Menu">
+
                     <div className="ItemCardápio">
 
-                        <div className="container text-center">
+                        <div className="container">
                             <div className="row">
 
-                                
+
                                 {selectedItems.map(item => (
                                     <div className="col-4" key={item.id}>
-                                        
-                                            <img src={item.image} alt="imgitem"></img>
-                                            <div className="Container-CaracteristicasItens"> 
-                                                <p className="Name-Product">{item.name}</p>
-                                                <p className="Description-Product">{item.type}</p>
-                                                <p className="Price-Product">{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+
+                                        <img src={item.image} alt="imgitem"></img>
+                                        <div className="Container-CaracteristicasItens">
+
+                                            <li><p className="Name-Product">{item.name}</p></li>
+                                            <li><p className="Description-Product">{item.type}</p></li>
+                                            <li><p className="Price-Product">{item.price}</p></li>
+                                            <div className="">
+                                                <label></label>
+                                                <input type="checkbox" className="position-absolute bottom-0 end-0" checked={item.selected} onChange={() => handleCheckBoxChange(item)}></input>
                                             </div>
-                                      
+                                        </div>
+
                                     </div>
                                 ))}
 

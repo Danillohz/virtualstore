@@ -168,6 +168,7 @@ input[type="file"]{
 .ItemCardápio{
   display: flex;
   width: 100%;
+  height: 100%;
   margin: 20px 0px 0px 0px;
   align-items: center;
   text-align: center;
@@ -178,24 +179,37 @@ input[type="file"]{
 }
 
 .Container-CaracteristicasItens{
-  margin-bottom: 2px;
+  position: relative;
+  margin: 0px auto 2px auto;
   width: 100%;
-}
-.Container-CaracteristicasItens > p{
-  width: 100%;
+  
+  
 }
 .Name-Product{
-  font-size: 2.6vw;
+  margin: auto;
+  font-size: 2.5vw;
 }
 .Description-Product{
-  margin-top: -20px;
+  margin: auto;
   font-size: 2vw;
   text-align: center;
 }
 .Price-Product{
-  font-size: 2vw;
-  margin-top: -14px;
+  margin: auto;
+  font-size: 2.3vw;
 }
+li{
+  position: relative;
+  list-style: none;
+  height: 100%;
+}
+
+.Container-btn-Edit-Delete{
+  background-color: #241c1c;
+  padding: 8px;
+  
+}
+
 
 
 
