@@ -116,12 +116,12 @@ function CeoView() {
 
 
             <div className=" Container-body-ceo">
-                <header className="container-fluid">
+                <header className="Header-Ceo">
                     
-                        <div className="position-absolute top-0 end-0  Img-Logo">
+                        <div className="position-absolute top-0 end-0 me-2 Img-Logo">
                             <img src={imgLogoCaipirinha} alt="logo"></img>
                         </div>
-                        <button type="button" className="Button-Create-Itens" onClick={toggleVisibleCreateItem}>
+                        <button type="button" className="position-absolute top-0 start-0 w-1 Button-Create-Itens" onClick={toggleVisibleCreateItem}>
                             +
                         </button>
                    
@@ -130,14 +130,14 @@ function CeoView() {
                 {visibleCreateItens && (
                     <div className="container-sm Container-CreateItens">
                         <div className="ms-1">
-                            <div className="Container-Img-Product  ">
+                            <div className="Container-Img-Product-Create">
                                 {imgProductValue && (
-                                    <div className="Img-Product">
+                                    <div className="Img-Product-Create">
                                         <img src={imgProductValue} alt="Imagem Selecionada" className="img-fluid" />
                                     </div>
                                 )}
-                                <label className="Label-Img-product" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
-                                <input type="file" className="Input-Img-Product" id="Input-Img-Product-Id" name="Input-Img-Product"
+                                <label className="Label-Img-product-Create" htmlFor="Input-Img-Product-Id">Enviar arquivo</label>
+                                <input type="file" className="Input-Img-Product-Create" id="Input-Img-Product-Id" name="Input-Img-Product"
                                     onChange={handleImgProduct}>
 
                                 </input>
@@ -169,7 +169,7 @@ function CeoView() {
                     </div>
                 )}
 
-                <h1>Cardápio</h1>
+                <h1>Estoque</h1>
 
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -193,7 +193,7 @@ function CeoView() {
 
 
                                 {selectedItems.map(item => (
-                                    <div className="col-4" key={item.id}>
+                                    <div className="col-4 " key={item.id}>
 
                                         <img src={item.image} alt="imgitem"></img>
                                         <div className="Container-CaracteristicasItens">
@@ -201,10 +201,10 @@ function CeoView() {
                                             <li><p className="Name-Product">{item.name}</p></li>
                                             <li><p className="Description-Product">{item.type}</p></li>
                                             <li><p className="Price-Product">{item.price}</p></li>
-                                            <div className="">
+                                            
                                                 <label></label>
-                                                <input type="checkbox" className="position-absolute bottom-0 end-0" checked={item.select} onChange={() => handleCheckBoxChange(item)}></input>
-                                            </div>
+                                                <input type="checkbox" className="position-absolute top-0 start-100 translate-middle" checked={item.select} onChange={() => handleCheckBoxChange(item)}></input>
+                                            
                                         </div>
 
                                     </div>
