@@ -2,16 +2,21 @@ import { useState } from "react"
 import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
 import imgVazia from "../imagens/Fundo-transparente.png"
 let numberId = 0;
-const itemsSelected = undefined
+var itemsSelected = undefined;
+
 
 function CeoView() {
 
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
     const [visibleEditAndDeleteItems, setVisibleEditAndDeleteItems] = useState(false);
-    const  [visibleBtnSubmitCreateItems, setVisibleBtnSubmitCreateItems] = useState(false);
-    const  [visibleBtnSubmitEditItems, setVisibleBtnSubmitEditItems] = useState(false);
+    const [visibleBtnSubmitCreateItems, setVisibleBtnSubmitCreateItems] = useState(false);
+    const [visibleBtnSubmitEditItems, setVisibleBtnSubmitEditItems] = useState(false);
+    const [emptyStockVisible, setEmptyStockVisible] = useState(true)
+
     const [selectedItems, setSelectedItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
+    const [lastSelectedItem, setLastSelectedItem] = useState(null);
+    const [penultimateSelectedItem, setPenultimateSelectedItem] = useState(null)
 
     const [imgProductValue, setImgProduct] = useState(imgVazia);
     const [priceProductValue, setPriceProductValue] = useState(0);
@@ -25,7 +30,7 @@ function CeoView() {
         setVisibleCreateItens(!visibleCreateItens)
         setVisibleBtnSubmitCreateItems(true)
         setVisibleBtnSubmitEditItems(false)
-        
+
 
     }
 
@@ -59,6 +64,7 @@ function CeoView() {
     // cria o item na tela quando clickar no botão de Enviar
     const handleCreateItem = () => {
 
+
         const formattedPrice = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
@@ -76,7 +82,7 @@ function CeoView() {
         setSelectedItems([...selectedItems, item]);
         setStockValue(stockValue - item.price);
 
-        console.log(selectedItems)
+
         numberId = numberId + 1;
 
         setImgProduct(imgVazia)
@@ -84,6 +90,7 @@ function CeoView() {
         setSelectItemTypeValue("none")
         setPriceProductValue(0)
 
+        setEmptyStockVisible(selectedItems.length  < 0)
 
     }
 
@@ -91,58 +98,123 @@ function CeoView() {
 
     function handleCheckBoxChange(item) {
 
-        item.selected = !item.selected
+        item.selected = !item.selected;
 
-        //Ve se tem checkbox ativada se tiver torna visivel a barra para excluir e editar itens
-        const itemsSelected = selectedItems.filter(item => item.selected)
+        itemsSelected = selectedItems.filter(item => item.selected)
         setVisibleEditAndDeleteItems(itemsSelected.length > 0)
-        console.log(itemsSelected)
+
+        setSelectedItems(prevSelectedItems => {
+            const itemIndex = prevSelectedItems.findIndex(selectedItem => selectedItem.id === item.id);
+
+            if (itemIndex !== -1) {
+                // O item já está na lista de itens selecionados, atualiza o estado
+                const updatedSelectedItems = [...prevSelectedItems];
+                updatedSelectedItems[itemIndex] = item;
+                return updatedSelectedItems;
+            } else if (item.selected) {
+                // Adiciona o item à lista de itens selecionados
+                return [...prevSelectedItems, item];
+            }
+
+            return prevSelectedItems;
+        });
+
+        if (item.selected) {
+            // Atualiza o último e o penúltimo item selecionado
+            setPenultimateSelectedItem(lastSelectedItem);
+            setLastSelectedItem(item);
+        } else if (lastSelectedItem !== null && lastSelectedItem.id === item.id) {
+            // A checkbox do último item selecionado foi desmarcada
+            setLastSelectedItem(penultimateSelectedItem);
+            setPenultimateSelectedItem(selectedItems[selectedItems.length - 2] || null);
+        }
     }
+
+
+
 
     //Vê os items que estão com checkbox(true), e deixa somente quem não está
 
     const handleDeleteItemClick = () => {
-        setVisibleEditAndDeleteItems(itemsSelected?.length > 0)
 
         const itemsToKeep = selectedItems.filter(item => !item.selected);
         setSelectedItems(itemsToKeep);
+        console.log(selectedItems)
 
-        console.log(itemsToKeep)
+        console.log(emptyStockVisible)
+        
+        setVisibleEditAndDeleteItems(false)
 
+        setEmptyStockVisible(itemsToKeep.length === 0)
+
+        console.log(emptyStockVisible)
     }
 
-    //
+    //Deixa visivel o edit itens e muda os nomes para o primeiro item clicado
 
     const visibleEditItems = () => {
         setVisibleCreateItens(!visibleCreateItens);
         setVisibleBtnSubmitEditItems(true);
         setVisibleBtnSubmitCreateItems(false);
-        
-        
+
+        console.log(lastSelectedItem)
 
         const selectedNames = [];
         const selectedType = [];
         const selectedPrice = [];
         const selectedImg = [];
 
-        selectedItems.forEach((item) => {
-            if (item.selected) {
-                selectedNames.push(item.name);
-                selectedType.push(item.type);
-                selectedImg.push(item.image)
-            }
-        });
+       
 
-        setNameProductValue(selectedNames[0] || '');
+        selectedNames.push(lastSelectedItem.name);
+        selectedType.push(lastSelectedItem.type);
+        selectedPrice.push(lastSelectedItem.price.match(/\d+/)[0]);
+        selectedImg.push(lastSelectedItem.image);
+
+        setNameProductValue(selectedNames || '');
         setSelectItemTypeValue(selectedType[0] || '');
-        setPriceProductValue(selectedPrice[0] || '');
-        setImgProduct(selectedImg[0] || '')
+        setPriceProductValue(selectedPrice || '');
+        setImgProduct(selectedImg || '')
 
-        console.log(selectedItems)
+
     }
 
-    const handleEditItem = () =>{
-        
+
+    //Muda o item quando clicado no botão de editar dentro do createItems
+    const handleEditItem = () => {
+
+        let allItens = selectedItems;
+
+        //muda o price pelo padrão real 
+        const formattedPrice = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(priceProductValue)
+
+        //Seta os props do lastSelectedItem para o que colocar no form
+        lastSelectedItem.name = nameProductValue
+        lastSelectedItem.type = selectItemTypeValue
+        lastSelectedItem.price = formattedPrice
+        lastSelectedItem.image = imgProductValue
+
+        console.log(lastSelectedItem)
+
+        //ve se há um id igual e caso seja aplica para aql item 
+        if (lastSelectedItem.id === selectedItems.find(item => item.id)) {
+            allItens.name = lastSelectedItem.name
+            allItens.type = lastSelectedItem.type
+            allItens.price = lastSelectedItem.price
+            allItens.img = lastSelectedItem.image
+        }
+
+        setSelectedItems(allItens)
+        setVisibleCreateItens(!visibleCreateItens);
+
+        setImgProduct(imgVazia)
+        setNameProductValue("none")
+        setSelectItemTypeValue("none")
+        setPriceProductValue(0)
+
     }
 
     return (
@@ -166,6 +238,7 @@ function CeoView() {
                     <div className="container-sm Container-CreateItens">
                         <div className="ms-1">
                             <div className="Container-Img-Product-Create">
+
                                 {imgProductValue && (
                                     <div className="Img-Product-Create">
                                         <img src={imgProductValue} alt="Imagem Selecionada" className="img-fluid" />
@@ -198,9 +271,9 @@ function CeoView() {
                                     <input type="number" className="form-control form-control-sm mb-4 " value={priceProductValue} onChange={handlePrice} />
 
                                 </div>
-                                
+
                                 {visibleBtnSubmitCreateItems && !visibleBtnSubmitEditItems ? (
-                                <button type="submit" className="btn btn-light mb-4" onClick={handleCreateItem}>Enviar</button>
+                                    <button type="submit" className="btn btn-light mb-4" onClick={handleCreateItem}>Enviar</button>
                                 ) : <button type="submit" className="btn btn-light mb-4" onClick={handleEditItem}>Editar</button>}
                             </div>
                         </div>
@@ -230,6 +303,15 @@ function CeoView() {
                 )}
                 <div className="Ornament-Menu">
 
+                   {emptyStockVisible ? (
+                    <div className="row-2 Item-Not-Found">
+                        <div className="col"><div>(;-;)</div></div>
+                        <div className="col"><h1>Nenhum item no estoque.</h1></div>
+                        
+                    </div>
+                    
+
+                   ):
                     <div className="ItensCardápio">
 
                         <div className="container">
@@ -260,7 +342,10 @@ function CeoView() {
                         </div>
 
                     </div>
+                    }
+                    
                 </div>
+                
 
             </div>
         </>

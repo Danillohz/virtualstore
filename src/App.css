@@ -161,10 +161,22 @@ input[type="file"]{
   width: 70%;
   max-height: 100%;
   margin: auto;
-  background-color: #f0e5dd;
-  border: 8px solid #241c1c;
+  background: black url("imagens/fundo-folha-amarela.jpg") no-repeat center center;
+  background-size: cover;
+  border: 6px solid #241c1c;
   border-radius: 25px 25px 10px 10px;
+  box-shadow: inset 1px 1px 10px 1px rgba(0, 0, 0, 0.385);
   z-index: 1;
+}
+.Item-Not-Found{
+  color: #00000058;
+  text-align: center;
+  font-size: 12vw;
+}
+.Item-Not-Found > div > h1{
+  font-size: 3.5vw;
+  font-weight: normal;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .ItensCardápio{
