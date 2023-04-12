@@ -65,13 +65,13 @@ export default function Login(props) {
               />
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary" onClick={loginSubmit}>
+              <button type="submit" className="btn btn btn-outline-dark" onClick={loginSubmit}>
                 Submit
               </button>
             </div>
             <div className=" d-md-flex justify-content-md-end ">
-              <button className="btn btn-info mt-3" type="button" onClick={ceoEmailPassword}>CEO</button>
-              <button className="btn btn-info mx-2 mt-3" type="button" onClick={clientEmailPassword}>Client</button>
+              <button className="btn btn-outline-secondary mt-3" type="button" onClick={ceoEmailPassword}>CEO</button>
+              <button className="btn btn-outline-secondary mx-2 mt-3" type="button" onClick={clientEmailPassword}>Client</button>
             </div>
 
           </div>

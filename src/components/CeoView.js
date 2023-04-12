@@ -6,12 +6,14 @@ var itemsSelected = undefined;
 
 
 function CeoView() {
+    
 
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
     const [visibleEditAndDeleteItems, setVisibleEditAndDeleteItems] = useState(false);
     const [visibleBtnSubmitCreateItems, setVisibleBtnSubmitCreateItems] = useState(false);
     const [visibleBtnSubmitEditItems, setVisibleBtnSubmitEditItems] = useState(false);
     const [emptyStockVisible, setEmptyStockVisible] = useState(true)
+    const [itemSelectionIdentifier, setItemSelectionIdentifier] = useState("col-4")
 
     const [selectedItems, setSelectedItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
@@ -75,7 +77,8 @@ function CeoView() {
             name: nameProductValue,
             image: imgProductValue,
             type: selectItemTypeValue,
-            price: formattedPrice
+            price: formattedPrice,
+            focus: "col-4"
 
         };
 
@@ -99,6 +102,12 @@ function CeoView() {
     function handleCheckBoxChange(item) {
 
         item.selected = !item.selected;
+        
+        if(item.focus === "col-4"){
+            item.focus = "col-4 Items"
+        }else{
+            item.focus = "col-4"
+        }
 
         itemsSelected = selectedItems.filter(item => item.selected)
         setVisibleEditAndDeleteItems(itemsSelected.length > 0)
@@ -128,9 +137,13 @@ function CeoView() {
             setLastSelectedItem(penultimateSelectedItem);
             setPenultimateSelectedItem(selectedItems[selectedItems.length - 2] || null);
         }
+
+        
+        console.log(selectedItems)
+        
     }
 
-
+    
 
 
     //Vê os items que estão com checkbox(true), e deixa somente quem não está
@@ -139,15 +152,10 @@ function CeoView() {
 
         const itemsToKeep = selectedItems.filter(item => !item.selected);
         setSelectedItems(itemsToKeep);
-        console.log(selectedItems)
-
-        console.log(emptyStockVisible)
         
         setVisibleEditAndDeleteItems(false)
-
         setEmptyStockVisible(itemsToKeep.length === 0)
 
-        console.log(emptyStockVisible)
     }
 
     //Deixa visivel o edit itens e muda os nomes para o primeiro item clicado
@@ -157,7 +165,6 @@ function CeoView() {
         setVisibleBtnSubmitEditItems(true);
         setVisibleBtnSubmitCreateItems(false);
 
-        console.log(lastSelectedItem)
 
         const selectedNames = [];
         const selectedType = [];
@@ -196,8 +203,6 @@ function CeoView() {
         lastSelectedItem.type = selectItemTypeValue
         lastSelectedItem.price = formattedPrice
         lastSelectedItem.image = imgProductValue
-
-        console.log(lastSelectedItem)
 
         //ve se há um id igual e caso seja aplica para aql item 
         if (lastSelectedItem.id === selectedItems.find(item => item.id)) {
@@ -312,14 +317,14 @@ function CeoView() {
                     
 
                    ):
-                    <div className="ItensCardápio">
+                    <div className="Items-Estoque">
 
                         <div className="container">
                             <div className="row">
 
 
                                 {selectedItems.map(item => (
-                                    <div className="col-4 " key={item.id}>
+                                    <div className={item.focus} key={item.id}>
 
                                         <img src={item.image} alt="imgitem"></img>
                                         <div className="Container-CaracteristicasItens">
