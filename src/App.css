@@ -61,6 +61,34 @@ label {
 }
 
 /*Tudo sobre o CeoView*/
+.Loading-Screen{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #201e1e;
+}
+
+.Glass{
+  width: 96px;
+  height: 216px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid #fff;
+  animation: fill 3s infinite ease-in-out;
+  color: #fdfdfd;
+  border-radius: 0 0 4px 4px;
+  transform: perspective(450px) rotateX(-45deg);
+}
+@keyframes fill {
+  0%{
+    box-shadow: 0 -225px inset;
+  }
+  100%{
+    box-shadow: 0 0px inset;
+  }
+}
+
+
 header {
   width: 100%;
   height: 60px;

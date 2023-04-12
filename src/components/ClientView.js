@@ -1,9 +1,10 @@
+import LoadingScreen from "./LoadingScreen"
 
 function ClientView() {
     return(
-        <div>
-            <p>222</p>
-        </div>
+        <>
+        <LoadingScreen value={1000 * 3}></LoadingScreen>
+        </>
     )
 }
 

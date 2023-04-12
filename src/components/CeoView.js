@@ -1,19 +1,20 @@
 import { useState } from "react"
 import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
 import imgVazia from "../imagens/Fundo-transparente.png"
+import LoadingScreen from "./LoadingScreen";
 let numberId = 0;
 var itemsSelected = undefined;
 
 
 function CeoView() {
     
-
+    
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
     const [visibleEditAndDeleteItems, setVisibleEditAndDeleteItems] = useState(false);
     const [visibleBtnSubmitCreateItems, setVisibleBtnSubmitCreateItems] = useState(false);
     const [visibleBtnSubmitEditItems, setVisibleBtnSubmitEditItems] = useState(false);
     const [emptyStockVisible, setEmptyStockVisible] = useState(true)
-    const [itemSelectionIdentifier, setItemSelectionIdentifier] = useState("col-4")
+    
 
     const [selectedItems, setSelectedItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
@@ -25,9 +26,16 @@ function CeoView() {
     const [nameProductValue, setNameProductValue] = useState("none");
     const [selectItemTypeValue, setSelectItemTypeValue] = useState("none")
 
+    // Carrega tudo que está desativado pra ter uma primeira visualização sem bugs
+    function loadContents() {
+        setVisibleEditAndDeleteItems(true)
+        setVisibleEditAndDeleteItems(false)
+        window.removeEventListener("load", loadContents);
+      }
+      
+      window.addEventListener("load", loadContents);
 
-
-    //faz com que a criação dos itens apareça para o usuario
+    // Faz com que a criação dos itens apareça para o usuario
     const toggleVisibleCreateItem = () => {
         setVisibleCreateItens(!visibleCreateItens)
         setVisibleBtnSubmitCreateItems(true)
@@ -36,7 +44,7 @@ function CeoView() {
 
     }
 
-    //da um valor para imgProductValue e muda a imagem com o mesmo valor
+    // Da um valor para imgProductValue e muda a imagem com o mesmo valor
     const handleImgProduct = (event) => {
 
 
@@ -50,7 +58,7 @@ function CeoView() {
         }
     }
 
-    //muda o valor quando feito qualquer ação nos botões
+    // Muda o valor quando feito qualquer ação nos botões
 
     const handlePrice = (event) => {
         setPriceProductValue(event.target.value)
@@ -63,7 +71,7 @@ function CeoView() {
         setSelectItemTypeValue(event.target.value);
     }
 
-    // cria o item na tela quando clickar no botão de Enviar
+    // Cria o item na tela quando clickar no botão de Enviar
     const handleCreateItem = () => {
 
 
@@ -97,8 +105,7 @@ function CeoView() {
 
     }
 
-    //identifica que item está selecionado
-
+    // Identifica que item está selecionado
     function handleCheckBoxChange(item) {
 
         item.selected = !item.selected;
@@ -109,6 +116,7 @@ function CeoView() {
             item.focus = "col-4"
         }
 
+        // Vê se items selecionados é maior que 0 e se for torna visivel a opção de editar e excluir
         itemsSelected = selectedItems.filter(item => item.selected)
         setVisibleEditAndDeleteItems(itemsSelected.length > 0)
 
@@ -146,7 +154,7 @@ function CeoView() {
     
 
 
-    //Vê os items que estão com checkbox(true), e deixa somente quem não está
+    // Vê os items que estão com checkbox(true), e deixa somente quem não está
 
     const handleDeleteItemClick = () => {
 
@@ -158,7 +166,7 @@ function CeoView() {
 
     }
 
-    //Deixa visivel o edit itens e muda os nomes para o primeiro item clicado
+    // Deixa visivel o edit itens e muda os nomes para o primeiro item clicado
 
     const visibleEditItems = () => {
         setVisibleCreateItens(!visibleCreateItens);
@@ -187,24 +195,24 @@ function CeoView() {
     }
 
 
-    //Muda o item quando clicado no botão de editar dentro do createItems
+    // Muda o item quando clicado no botão de editar dentro do createItems
     const handleEditItem = () => {
 
         let allItens = selectedItems;
 
-        //muda o price pelo padrão real 
+        // Muda o price pelo padrão real 
         const formattedPrice = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
         }).format(priceProductValue)
 
-        //Seta os props do lastSelectedItem para o que colocar no form
+        // Seta os props do lastSelectedItem para o que colocar no form
         lastSelectedItem.name = nameProductValue
         lastSelectedItem.type = selectItemTypeValue
         lastSelectedItem.price = formattedPrice
         lastSelectedItem.image = imgProductValue
 
-        //ve se há um id igual e caso seja aplica para aql item 
+        // Ve se há um id igual e caso seja aplica para aql item 
         if (lastSelectedItem.id === selectedItems.find(item => item.id)) {
             allItens.name = lastSelectedItem.name
             allItens.type = lastSelectedItem.type
@@ -226,8 +234,10 @@ function CeoView() {
         <>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-
             <div className=" Container-body-ceo">
+
+               <LoadingScreen value={1000 * 3}></LoadingScreen>
+
                 <header className="Header-Ceo">
 
                     <div className="position-absolute top-0 end-0 me-2 Img-Logo">
