@@ -8,6 +8,7 @@ import ClientView from "./ClientView";
 
 
 
+
 function AppRoutes() {
     return (
       
@@ -17,6 +18,7 @@ function AppRoutes() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/ceoview" element={<CeoView />} />
                         <Route path="/clientview" element={<ClientView />} />
+                        
                 </Routes>
             </> 
           

@@ -118,10 +118,6 @@ header {
   font-size: 40px;
 }
 
-.Button-Create-Itens:hover {
-  background-color: #232323;
-}
-
 .Img-Logo {
   position: absolute;
   height: 60px;
@@ -274,6 +270,26 @@ li{
   top: 38%;
   
 }
+
+/*aqui esta o ccs da parte do Client View*/
+
+.Container-Carrinho-De-Compras{
+  height: 80%;
+  background-color: #2c2828;
+  border: 3px rgb(81, 81, 81) solid;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.511)
+}
+.Itens{
+  width: 90%;
+  border: 1px solid rgb(81, 81, 81);
+  border-radius: 10px;
+  color: rgb(192, 192, 192);
+  margin-top: 10px;
+}
+.material-symbols-outlined{
+  
+}
+
 
   
 
