@@ -7,19 +7,20 @@ var itemsSelected = undefined;
 
 
 function CeoView() {
-    
-    
+
+
     const [visibleCreateItens, setVisibleCreateItens] = useState(false);
     const [visibleEditAndDeleteItems, setVisibleEditAndDeleteItems] = useState(false);
     const [visibleBtnSubmitCreateItems, setVisibleBtnSubmitCreateItems] = useState(false);
     const [visibleBtnSubmitEditItems, setVisibleBtnSubmitEditItems] = useState(false);
     const [emptyStockVisible, setEmptyStockVisible] = useState(true)
-    
 
-    const [selectedItems, setSelectedItems] = useState([]);
+
+    const [allItems, setAllItems] = useState([]);
     const [stockValue, setStockValue] = useState("");
-    const [lastSelectedItem, setLastSelectedItem] = useState(null);
+    const [itemsSelectedOrLast, setItemsSelectedOrLast] = useState(null);
     const [penultimateSelectedItem, setPenultimateSelectedItem] = useState(null)
+    const [allCheckedtrue, setAllCheckedtrue] = useState(false)
 
     const [imgProductValue, setImgProduct] = useState(imgVazia);
     const [priceProductValue, setPriceProductValue] = useState(0);
@@ -31,9 +32,9 @@ function CeoView() {
         setVisibleEditAndDeleteItems(true)
         setVisibleEditAndDeleteItems(false)
         window.removeEventListener("load", loadContents);
-      }
-      
-      window.addEventListener("load", loadContents);
+    }
+
+    window.addEventListener("load", loadContents);
 
     // Faz com que a criação dos itens apareça para o usuario
     const toggleVisibleCreateItem = () => {
@@ -86,11 +87,12 @@ function CeoView() {
             image: imgProductValue,
             type: selectItemTypeValue,
             price: formattedPrice,
-            focus: "col-4"
+            focus: "col-4",
+            selected: false
 
         };
 
-        setSelectedItems([...selectedItems, item]);
+        setAllItems([...allItems, item]);
         setStockValue(stockValue - item.price);
 
 
@@ -101,26 +103,30 @@ function CeoView() {
         setSelectItemTypeValue("none")
         setPriceProductValue(0)
 
-        setEmptyStockVisible(selectedItems.length  < 0)
+        setEmptyStockVisible(allItems.length < 0)
 
+    }
+    // Vê se items selecionados é maior que 0 e se for torna visivel a opção de editar e excluir
+    const visibleEditAndDeletItemFunction = () => {
+
+        itemsSelected = allItems.filter(item => item.selected)
+        setVisibleEditAndDeleteItems(itemsSelected.length > 0)
     }
 
     // Identifica que item está selecionado
     function handleCheckBoxChange(item) {
 
         item.selected = !item.selected;
-        
-        if(item.focus === "col-4"){
+
+        if (item.focus === "col-4") {
             item.focus = "col-4 Items"
-        }else{
+        } else {
             item.focus = "col-4"
         }
 
-        // Vê se items selecionados é maior que 0 e se for torna visivel a opção de editar e excluir
-        itemsSelected = selectedItems.filter(item => item.selected)
-        setVisibleEditAndDeleteItems(itemsSelected.length > 0)
+        visibleEditAndDeletItemFunction()
 
-        setSelectedItems(prevSelectedItems => {
+        setAllItems(prevSelectedItems => {
             const itemIndex = prevSelectedItems.findIndex(selectedItem => selectedItem.id === item.id);
 
             if (itemIndex !== -1) {
@@ -138,29 +144,30 @@ function CeoView() {
 
         if (item.selected) {
             // Atualiza o último e o penúltimo item selecionado
-            setPenultimateSelectedItem(lastSelectedItem);
-            setLastSelectedItem(item);
-        } else if (lastSelectedItem !== null && lastSelectedItem.id === item.id) {
+            setPenultimateSelectedItem(itemsSelectedOrLast);
+            setItemsSelectedOrLast(item);
+        } else if (itemsSelectedOrLast !== null && itemsSelectedOrLast.id === item.id) {
             // A checkbox do último item selecionado foi desmarcada
-            setLastSelectedItem(penultimateSelectedItem);
-            setPenultimateSelectedItem(selectedItems[selectedItems.length - 2] || null);
+            setItemsSelectedOrLast(penultimateSelectedItem);
+            setPenultimateSelectedItem(allItems[allItems.length - 2] || null);
         }
 
-        
-        console.log(selectedItems)
-        
+
+        console.log(allItems)
+
+
     }
 
-    
+
 
 
     // Vê os items que estão com checkbox(true), e deixa somente quem não está
 
     const handleDeleteItemClick = () => {
 
-        const itemsToKeep = selectedItems.filter(item => !item.selected);
-        setSelectedItems(itemsToKeep);
-        
+        const itemsToKeep = allItems.filter(item => !item.selected);
+        setAllItems(itemsToKeep);
+
         setVisibleEditAndDeleteItems(false)
         setEmptyStockVisible(itemsToKeep.length === 0)
 
@@ -169,6 +176,7 @@ function CeoView() {
     // Deixa visivel o edit itens e muda os nomes para o primeiro item clicado
 
     const visibleEditItems = () => {
+
         setVisibleCreateItens(!visibleCreateItens);
         setVisibleBtnSubmitEditItems(true);
         setVisibleBtnSubmitCreateItems(false);
@@ -179,18 +187,19 @@ function CeoView() {
         const selectedPrice = [];
         const selectedImg = [];
 
-       
-
-        selectedNames.push(lastSelectedItem.name);
-        selectedType.push(lastSelectedItem.type);
-        selectedPrice.push(lastSelectedItem.price.match(/\d+/)[0]);
-        selectedImg.push(lastSelectedItem.image);
+        selectedNames.push(itemsSelectedOrLast.name);
+        selectedType.push(itemsSelectedOrLast.type);
+        selectedPrice.push(itemsSelectedOrLast?.price?.match(/\d+/)[0]);
+        if(allCheckedtrue === false){
+        selectedImg.push(itemsSelectedOrLast.image);
+        }else {
+            selectedImg.push(imgVazia);
+        }
 
         setNameProductValue(selectedNames || '');
         setSelectItemTypeValue(selectedType[0] || '');
         setPriceProductValue(selectedPrice || '');
         setImgProduct(selectedImg || '')
-
 
     }
 
@@ -198,7 +207,7 @@ function CeoView() {
     // Muda o item quando clicado no botão de editar dentro do createItems
     const handleEditItem = () => {
 
-        let allItens = selectedItems;
+        let allItemsVariant = allItems;
 
         // Muda o price pelo padrão real 
         const formattedPrice = new Intl.NumberFormat('pt-BR', {
@@ -207,26 +216,66 @@ function CeoView() {
         }).format(priceProductValue)
 
         // Seta os props do lastSelectedItem para o que colocar no form
-        lastSelectedItem.name = nameProductValue
-        lastSelectedItem.type = selectItemTypeValue
-        lastSelectedItem.price = formattedPrice
-        lastSelectedItem.image = imgProductValue
+        itemsSelectedOrLast.name = nameProductValue
+        itemsSelectedOrLast.type = selectItemTypeValue
+        itemsSelectedOrLast.price = formattedPrice
+        itemsSelectedOrLast.image = imgProductValue
 
-        // Ve se há um id igual e caso seja aplica para aql item 
-        if (lastSelectedItem.id === selectedItems.find(item => item.id)) {
-            allItens.name = lastSelectedItem.name
-            allItens.type = lastSelectedItem.type
-            allItens.price = lastSelectedItem.price
-            allItens.img = lastSelectedItem.image
+
+        if (allCheckedtrue === false) {
+
+            // Ve se há um id igual e caso seja aplica para aql item 
+            if (itemsSelectedOrLast.id === allItems.find(item => item.id)) {
+                allItemsVariant.name = itemsSelectedOrLast.name
+                allItemsVariant.type = itemsSelectedOrLast.type
+                allItemsVariant.price = itemsSelectedOrLast.price
+                allItemsVariant.img = itemsSelectedOrLast.image
+            }
+
+        } else {
+            allItemsVariant = allItems.filter(item => item.selected)
+                allItemsVariant.map((item) => {
+                    return (item.name = itemsSelectedOrLast.name,
+                        item.type = itemsSelectedOrLast.type,
+                        item.price = itemsSelectedOrLast.price,
+                        item.image = itemsSelectedOrLast.image)
+                })
+            
+
         }
 
-        setSelectedItems(allItens)
         setVisibleCreateItens(!visibleCreateItens);
-
+        console.log(allItemsVariant)
+        console.log(allItems)
         setImgProduct(imgVazia)
         setNameProductValue("none")
         setSelectItemTypeValue("none")
         setPriceProductValue(0)
+
+    }
+
+    //seta todos os items como selected = true
+    const handleCheckedAll = () => {
+
+        setAllCheckedtrue(!allCheckedtrue)
+        const allSelected = allItems
+
+        //se o botão de todos selecionados for false ira definir que todos itens terão seu selected true 
+        if (allCheckedtrue === false) {
+            allSelected.map((item) => {
+                return (item.selected = true, item.focus = "col-4 Items")
+            })
+        } else {
+            allSelected.map((item) => {
+                return (item.selected = false, item.focus = "col-4")
+            })
+        }
+     
+
+
+        setAllItems(allSelected)
+        visibleEditAndDeletItemFunction()
+        setItemsSelectedOrLast(allSelected)
 
     }
 
@@ -236,7 +285,7 @@ function CeoView() {
 
             <div className=" Container-body-ceo">
 
-               <LoadingScreen value={1000 * 3}></LoadingScreen>
+                <LoadingScreen value={1}></LoadingScreen>
 
                 <header className="Header-Ceo">
 
@@ -317,50 +366,50 @@ function CeoView() {
                     </div>
                 )}
                 <div className="Ornament-Menu">
+                    <div className="Select-All-Button"><input className="form-check-input position-absolute top-0 end-0 m-2" type="checkbox" checked={allCheckedtrue} onChange={() => handleCheckedAll()}></input></div>
+                    {emptyStockVisible ? (
+                        <div className="row-2 Item-Not-Found">
+                            <div className="col"><div>(;-;)</div></div>
+                            <div className="col"><h1>Nenhum item no estoque.</h1></div>
 
-                   {emptyStockVisible ? (
-                    <div className="row-2 Item-Not-Found">
-                        <div className="col"><div>(;-;)</div></div>
-                        <div className="col"><h1>Nenhum item no estoque.</h1></div>
-                        
-                    </div>
-                    
-
-                   ):
-                    <div className="Items-Estoque">
-
-                        <div className="container">
-                            <div className="row">
+                        </div>
 
 
-                                {selectedItems.map(item => (
-                                    <div className={item.focus} key={item.id}>
+                    ) :
+                        <div className="Items-Estoque">
 
-                                        <img src={item.image} alt="imgitem"></img>
-                                        <div className="Container-CaracteristicasItens">
+                            <div className="container">
+                                <div className="row">
 
-                                            <li><p className="Name-Product">{item.name}</p></li>
-                                            <li><p className="Description-Product">{item.type}</p></li>
-                                            <li><p className="Price-Product">{item.price}</p></li>
 
-                                            <label></label>
-                                            <input type="checkbox" className="position-absolute top-0 start-100 translate-middle" checked={item.select} onChange={() => handleCheckBoxChange(item)}></input>
+                                    {allItems.map(item => (
+                                        <div className={item.focus} key={item.id}>
+
+                                            <img src={item.image} alt="imgitem"></img>
+                                            <div className="Container-CaracteristicasItens">
+
+                                                <li><p className="Name-Product">{item.name}</p></li>
+                                                <li><p className="Description-Product">{item.type}</p></li>
+                                                <li><p className="Price-Product">{item.price}</p></li>
+
+                                                <label></label>
+                                                <input type="checkbox" className="form-check-input position-absolute top-0 start-100 translate-middle" checked={item.selected} onChange={() => handleCheckBoxChange(item)}></input>
+
+                                            </div>
 
                                         </div>
+                                    ))}
 
-                                    </div>
-                                ))}
 
+                                </div>
 
                             </div>
 
                         </div>
-
-                    </div>
                     }
-                    
+
                 </div>
-                
+
 
             </div>
         </>

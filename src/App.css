@@ -217,8 +217,9 @@ input[type="file"]{
 }
 
 .Items{
-  outline: 2px solid #729c47;
-    outline-offset: -7px;
+
+  border: 1px solid #729c47 ;
+  padding: 10px 0px 0px 0px;
   border-radius: 20px;
  
 
@@ -286,9 +287,7 @@ li{
   color: rgb(192, 192, 192);
   margin-top: 10px;
 }
-.material-symbols-outlined{
-  
-}
+
 
 
   
