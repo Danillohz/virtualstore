@@ -285,7 +285,7 @@ function CeoView() {
 
             <div className=" Container-body-ceo">
 
-                <LoadingScreen value={1}></LoadingScreen>
+                <LoadingScreen value={1000 * 3}></LoadingScreen>
 
                 <header className="Header-Ceo">
 
