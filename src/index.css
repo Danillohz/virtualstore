@@ -6,9 +6,11 @@
 body, html{
   width: 100%;
 }
-
 body{
-  
+  width: 100%;
+}
+
+#root{
   height: 100%;
 }
 

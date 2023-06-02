@@ -6,7 +6,7 @@ import BackgroundColor from './components/BackGroundBody';
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <BackgroundColor></BackgroundColor>
       <ReactRoutes></ReactRoutes>
     </div>

@@ -6,7 +6,11 @@ import pineappleImg from "../imagens/fruits/abacaxiP.png"
 import lemonImg from "../imagens/fruits/limaoP.png"
 import stranwberryImg from "../imagens/fruits/morangoP.png"
 import passionImg from "../imagens/fruits/maracujaP.png"
-
+import Número1Img from "../imagens/numeros/Número1Img.png"
+import Número2Img from "../imagens/numeros/Número2Img.png"
+import Número3Img from "../imagens/numeros/Número3Img.png"
+import Número4Img from "../imagens/numeros/Número4Img.png"
+import { event } from "jquery";
 
 function ClientView() {
 
@@ -14,6 +18,8 @@ function ClientView() {
     const [animationReplay, setAnimationReplay] = useState("toFill")
 
     const [isVisibleShoppingCart, setvisibleShoppingCart] = useState(false)
+    const [isVisibleStep, setIsVisibleStep] = useState("")
+
     const [typeDrinkValue, setTypeDrinkValue] = useState("")
     const [fruitValue, setFruitValue] = useState("")
     const [additionalValue, setAdditionalValue] = useState("")
@@ -21,16 +27,18 @@ function ClientView() {
     const [backgroundAdditionalColor, setBackgroundAdditionalColor] = useState("")
     const [fruitImg, setFruitImg] = useState("")
 
+    const [totalOrderAmont, setTotalOrderAmont] = useState("R$:1,00")
+
     //Deixa o carrinho e seus itens escolhidos visíveis.
     const toggleVisibleShoppingCart = () => {
         setvisibleShoppingCart(!isVisibleShoppingCart)
     }
 
     //Muda o o valor do tipo de bebida alterando a cor do fundo do copo
-    const selectTypeDrink = (event) => {
-        setTypeDrinkValue(event.target.value);
+    const selectTypeDrink = (eventDrink) => {
+        setTypeDrinkValue(eventDrink.target.value);
 
-        switch (event.target.value) {
+        switch (eventDrink.target.value) {
             case "Vodka":
                 setBackgroundDrinkColor('#e1e1e162')
                 break
@@ -53,12 +61,16 @@ function ClientView() {
             setAnimationReplay("toFill")
         }
 
+        //faz surgir o segundo passo de escolha do pedido
+       
+        selectedSelectors(typeDrinkValue)
+
     }
 
-    const selectTypeFruit = (event) => {
-        setFruitValue(event.target.value)
+    const selectTypeFruit = (eventFruit) => {
+        setFruitValue(eventFruit.target.value)
 
-        switch (event.target.value) {
+        switch (eventFruit.target.value) {
             case "Morango":
                 // Defina a imagem de fundo para a opção "Morango"
                 setFruitImg(stranwberryImg);
@@ -77,11 +89,37 @@ function ClientView() {
                 break;
             case "Coco":
                 // Defina a imagem de fundo para a opção "Coco"
-                
+
                 break;
             default:
                 setFruitImg("");
                 break;
+        }
+
+        //faz surgir o segundo passo de escolha do pedido
+        
+        selectedSelectors(fruitValue)
+    }
+
+    //faz surgir o segundo passo de escolha do pedido
+    function selectedSelectors(typeDrinkValue, fruitValue) {
+        
+        if (typeDrinkValue === undefined || fruitValue === undefined) {
+            setIsVisibleStep("")
+            console.log("1")
+            console.log(typeDrinkValue)
+            console.log(fruitValue)
+        } else if(typeDrinkValue !== undefined && fruitValue !== undefined) {
+            setIsVisibleStep("isVisibleOrNot")
+            console.log("2")
+            console.log(typeDrinkValue)
+            console.log(fruitValue)
+        }
+        else {
+            setIsVisibleStep("")
+            console.log("3")
+            console.log(typeDrinkValue)
+            console.log(fruitValue)
         }
     }
 
@@ -101,7 +139,7 @@ function ClientView() {
                 setBackgroundAdditionalColor("#f0e6bbbf")
                 break;
             case "Yakut":
-                setBackgroundAdditionalColor("#dfdfdfa1")
+                setBackgroundAdditionalColor("#ffffffa1")
                 break;
 
             default:
@@ -121,6 +159,9 @@ function ClientView() {
     const additionalStyle = {
         color: backgroundAdditionalColor,
         animationName: animationReplay
+    }
+    const visibleSteps = {
+        animationName: isVisibleStep
     }
 
     return (
@@ -147,7 +188,7 @@ function ClientView() {
                 <div className="row m-auto Container-Items-And-Opcoes">
                     <div className="col Container-Item">
 
-                        <div style={glassStyle} className={`z-n1 Glass-Item`}>
+                        <div style={glassStyle} className="mb-5 z-n1 Glass-Item">
                             <div style={additionalStyle} className="z-1 Glass-Additional">
                                 <div className="z-1 Glass-Background-Color">
 
@@ -158,26 +199,66 @@ function ClientView() {
 
 
                     </div>
-                    <div className="col Container-Opcoes-Item">
-                        <select className="form-select mt-2" id="Select-TypeDrink" value={typeDrinkValue} onChange={selectTypeDrink}>
-                            <option value="">Bebida</option>
-                            <option value="Vodka">Vodka</option>
-                            <option value="Wine">Vinho</option>
-                            <option value="Liquor">Cachaça</option>
-                        </select>
-                        <select className="form-select mt-2" id="Select-TypeFruit" value={fruitValue} onChange={selectTypeFruit}>
-                            <option value="">Fruta</option>
-                            <option value="Morango">Morango</option>
-                            <option value="Abacaxi">Abacaxi</option>
-                            <option value="Limao">Limão</option>
-                            <option value="Maracuja">Maracujá</option>
-                            <option value="Coco">Coco</option>
-                        </select>
-                        <select className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
-                            <option value="">Adicional</option>
-                            <option value="LeiteCondensado">Leite Condensado</option>
-                            <option value="Yakut">Yakut</option>
-                        </select>
+                    <div className="col Container-Options-Item">
+
+                        <div className="Container-Options-select">
+
+
+                            <img src={Número1Img} alt=""></img>
+                            <div className="Informative-Texts">
+                                <p>Escolha uma bebida e uma fruta:</p>
+                            </div>
+
+                            <select className="form-select mt-2" id="Select-TypeDrink" value={typeDrinkValue} onChange={selectTypeDrink}>
+
+                                <option value="">Bebida</option>
+                                <option value="Vodka">Vodka</option>
+                                <option value="Wine">Vinho</option>
+                                <option value="Liquor">Cachaça</option>
+                            </select>
+                            <select className="form-select mt-2" id="Select-TypeFruit" value={fruitValue} onChange={selectTypeFruit}>
+                                <option value="">Fruta</option>
+                                <option value="Morango">Morango</option>
+                                <option value="Abacaxi">Abacaxi</option>
+                                <option value="Limao">Limão</option>
+                                <option value="Maracuja">Maracujá</option>
+                                <option value="Coco">Coco</option>
+                            </select>
+                             
+                                <div style={visibleSteps} className="Informative-Div-inverse">
+                                    <img src={Número2Img} alt=""></img>
+                                    <div className="Informative-Texts">
+                                        <p>Escolha seu adicional</p>
+                                    </div>
+                                    <select style={visibleSteps} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
+                                        <option value="">Adicional</option>
+                                        <option value="LeiteCondensado">Leite Condensado</option>
+                                        <option value="Yakut">Yakut</option>
+                                    </select>
+                                </div>
+
+
+                            <div className="mt-3 mb-3 Container-Purchase-Value">
+
+                                <img src={Número3Img} alt=""></img>
+                                <div className="Informative-Texts">
+                                    <p>Confira o valor</p>
+                                </div>
+                                <h2>Valor Total: {totalOrderAmont}</h2>
+
+
+                            </div>
+                            <div className="Informative-Div-inverse">
+                                <img src={Número4Img} alt=""></img>
+                                <div className="Informative-Texts">
+                                    <p>Agora é só finalizar a compra</p>
+                                </div>
+                            </div>
+                            <div className="mt-1 Container-Submit">
+                                <button type="submit" className="mt-3 btn btn-light mb-4">Adicionar ao Carrinho</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
