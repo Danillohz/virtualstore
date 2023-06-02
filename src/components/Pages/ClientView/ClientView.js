@@ -1,24 +1,31 @@
-import LoadingScreen from "./LoadingScreen"
-import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
+import LoadingScreen from "../../Loading/LoadingScreen"
+import imgLogoCaipirinha from "../../../imagens/Logo-Caipirinha-Preto-Meia.png"
 import { useState } from "react";
 
-import pineappleImg from "../imagens/fruits/abacaxiP.png"
-import lemonImg from "../imagens/fruits/limaoP.png"
-import stranwberryImg from "../imagens/fruits/morangoP.png"
-import passionImg from "../imagens/fruits/maracujaP.png"
-import Número1Img from "../imagens/numeros/Número1Img.png"
-import Número2Img from "../imagens/numeros/Número2Img.png"
-import Número3Img from "../imagens/numeros/Número3Img.png"
-import Número4Img from "../imagens/numeros/Número4Img.png"
-import { event } from "jquery";
+import pineappleImg from "../../../imagens/fruits/abacaxiP.png"
+import lemonImg from "../../../imagens/fruits/limaoP.png"
+import stranwberryImg from "../../../imagens/fruits/morangoP.png"
+import passionImg from "../../../imagens/fruits/maracujaP.png"
+import Número1Img from "../../../imagens/numeros/Número1Img.png"
+import Número2Img from "../../../imagens/numeros/Número2Img.png"
+import Número3Img from "../../../imagens/numeros/Número3Img.png"
+import Número4Img from "../../../imagens/numeros/Número4Img.png"
+
+import './ClientView.css'
+
+let fruitEvent;
+let drinkEvent;
+let additionalEvent;
 
 function ClientView() {
 
 
-    const [animationReplay, setAnimationReplay] = useState("toFill")
+    const [drinkAnimReplay, setDrinkAnimReplay] = useState("toFill")
+    const [additionalAnimReplay, setAdditionalAnimReplay] = useState("toFill")
 
     const [isVisibleShoppingCart, setvisibleShoppingCart] = useState(false)
-    const [isVisibleStep, setIsVisibleStep] = useState("")
+    const [animSecondStep, setAnimSecondStep] = useState("")
+    const [animThirdStep, setAnimThirdStep] = useState("")
 
     const [typeDrinkValue, setTypeDrinkValue] = useState("")
     const [fruitValue, setFruitValue] = useState("")
@@ -27,7 +34,7 @@ function ClientView() {
     const [backgroundAdditionalColor, setBackgroundAdditionalColor] = useState("")
     const [fruitImg, setFruitImg] = useState("")
 
-    const [totalOrderAmont, setTotalOrderAmont] = useState("R$:1,00")
+    const [totalOrderAmont, setTotalOrderAmont] = useState(11)
 
     //Deixa o carrinho e seus itens escolhidos visíveis.
     const toggleVisibleShoppingCart = () => {
@@ -35,10 +42,10 @@ function ClientView() {
     }
 
     //Muda o o valor do tipo de bebida alterando a cor do fundo do copo
-    const selectTypeDrink = (eventDrink) => {
-        setTypeDrinkValue(eventDrink.target.value);
+    const selectTypeDrink = (event) => {
+        setTypeDrinkValue(event.target.value);
 
-        switch (eventDrink.target.value) {
+        switch (event.target.value) {
             case "Vodka":
                 setBackgroundDrinkColor('#e1e1e162')
                 break
@@ -53,24 +60,24 @@ function ClientView() {
                 break
         }
 
-        //reseta a animação do drink enxendo
-        if (animationReplay === "toFill") {
-            setAnimationReplay("secondToFill")
+        //replay da animação
+        if (drinkAnimReplay === "toFill") {
+            setDrinkAnimReplay("secondToFill")
         }
-        else if (animationReplay === "secondToFill") {
-            setAnimationReplay("toFill")
+        else if (drinkAnimReplay === "secondToFill") {
+            setDrinkAnimReplay("toFill")
         }
-
+        
         //faz surgir o segundo passo de escolha do pedido
-       
-        selectedSelectors(typeDrinkValue)
+        drinkEvent = event.target.value
+        selectedSelectors()
 
     }
 
-    const selectTypeFruit = (eventFruit) => {
-        setFruitValue(eventFruit.target.value)
+    const selectTypeFruit = (event) => {
+        setFruitValue(event.target.value)
 
-        switch (eventFruit.target.value) {
+        switch (event.target.value) {
             case "Morango":
                 // Defina a imagem de fundo para a opção "Morango"
                 setFruitImg(stranwberryImg);
@@ -97,42 +104,12 @@ function ClientView() {
         }
 
         //faz surgir o segundo passo de escolha do pedido
-        
-        selectedSelectors(fruitValue)
-    }
-
-    //faz surgir o segundo passo de escolha do pedido
-    function selectedSelectors(typeDrinkValue, fruitValue) {
-        
-        if (typeDrinkValue === undefined || fruitValue === undefined) {
-            setIsVisibleStep("")
-            console.log("1")
-            console.log(typeDrinkValue)
-            console.log(fruitValue)
-        } else if(typeDrinkValue !== undefined && fruitValue !== undefined) {
-            setIsVisibleStep("isVisibleOrNot")
-            console.log("2")
-            console.log(typeDrinkValue)
-            console.log(fruitValue)
-        }
-        else {
-            setIsVisibleStep("")
-            console.log("3")
-            console.log(typeDrinkValue)
-            console.log(fruitValue)
-        }
+        fruitEvent = event.target.value
+        selectedSelectors()
     }
 
     const selectAdditionalType = (event) => {
         setAdditionalValue(event.target.value)
-
-        //reseta a animação do drink enxendo
-        if (animationReplay === "toFill") {
-            setAnimationReplay("secondToFill")
-        }
-        else if (animationReplay === "secondToFill") {
-            setAnimationReplay("toFill")
-        }
 
         switch (event.target.value) {
             case "LeiteCondensado":
@@ -147,21 +124,59 @@ function ClientView() {
                 break;
         }
 
+        //replay da animação
+        if (additionalAnimReplay === "toFill") {
+            setAdditionalAnimReplay("secondToFill")
+        }
+        else if (additionalAnimReplay === "secondToFill") {
+            setAdditionalAnimReplay("toFill")
+        }
+
+        additionalEvent = event.target.value
+        selectedSelectors();
+
+    }
+
+    //faz surgir o segundo passo de escolha do pedido
+    function selectedSelectors() {
+
+        if (drinkEvent === undefined || fruitEvent === undefined || drinkEvent === "" || fruitEvent === "") {
+            setAnimSecondStep("")
+
+        } else {
+            setAnimSecondStep("isVisibleOrNot")
+
+        }
+
+        if (additionalEvent === undefined || additionalEvent === "") {
+            setAnimThirdStep("")
+        } else {
+            setAnimThirdStep("isVisibleOrNot")
+        }
+    }
+
+    const changeValuePrice = () => {
+
     }
 
     //Style para mudar a cor do fundo do copo
     const glassStyle = {
         color: backgroundDrinkColor,
         backgroundImage: `url(${fruitImg})`,
-        animationName: animationReplay
+        animationName: drinkAnimReplay
     }
     //Style para mudar a cor do addicional no fundo do copo
     const additionalStyle = {
         color: backgroundAdditionalColor,
-        animationName: animationReplay
+        animationName: additionalAnimReplay
     }
-    const visibleSteps = {
-        animationName: isVisibleStep
+    //Ativa a opacidade do segundo passo
+    const visibleSecondStep = {
+        animationName: animSecondStep
+    }
+    //Ativa a opacidade do terceiro e do quarto
+    const visibleThirdStep = {
+        animationName: animThirdStep
     }
 
     return (
@@ -224,21 +239,21 @@ function ClientView() {
                                 <option value="Maracuja">Maracujá</option>
                                 <option value="Coco">Coco</option>
                             </select>
-                             
-                                <div style={visibleSteps} className="Informative-Div-inverse">
-                                    <img src={Número2Img} alt=""></img>
-                                    <div className="Informative-Texts">
-                                        <p>Escolha seu adicional</p>
-                                    </div>
-                                    <select style={visibleSteps} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
-                                        <option value="">Adicional</option>
-                                        <option value="LeiteCondensado">Leite Condensado</option>
-                                        <option value="Yakut">Yakut</option>
-                                    </select>
+
+                            <div style={visibleSecondStep} className="Informative-Div-inverse">
+                                <img src={Número2Img} alt=""></img>
+                                <div className="Informative-Texts">
+                                    <p>Escolha seu adicional</p>
                                 </div>
+                                <select style={visibleSecondStep} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
+                                    <option value="">Adicional</option>
+                                    <option value="LeiteCondensado">Leite Condensado</option>
+                                    <option value="Yakut">Yakut</option>
+                                </select>
+                            </div>
 
 
-                            <div className="mt-3 mb-3 Container-Purchase-Value">
+                            <div style={visibleThirdStep} className="mt-3 mb-3 Container-Purchase-Value">
 
                                 <img src={Número3Img} alt=""></img>
                                 <div className="Informative-Texts">
@@ -248,13 +263,13 @@ function ClientView() {
 
 
                             </div>
-                            <div className="Informative-Div-inverse">
+                            <div style={visibleThirdStep} className="Informative-Div-inverse">
                                 <img src={Número4Img} alt=""></img>
                                 <div className="Informative-Texts">
                                     <p>Agora é só finalizar a compra</p>
                                 </div>
                             </div>
-                            <div className="mt-1 Container-Submit">
+                            <div style={visibleThirdStep} className="mt-1 Container-Submit">
                                 <button type="submit" className="mt-3 btn btn-light mb-4">Adicionar ao Carrinho</button>
                             </div>
                         </div>

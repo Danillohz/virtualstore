@@ -1,0 +1,203 @@
+/*aqui esta o ccs da parte do Client View*/
+.Container-body-Client {
+    height: calc(100vh - 60px);
+    width: 100%;
+  }
+  
+  /*Coisas do carrinho de compras*/
+  .Container-Shopping-Cart {
+    height: 80%;
+    background-color: #2c2828;
+    border: 3px rgb(81, 81, 81) solid;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.511)
+  }
+  
+  .Items-Cart {
+    width: 90%;
+    border: 1px solid rgb(81, 81, 81);
+    border-radius: 10px;
+    color: rgb(192, 192, 192);
+    margin-top: 10px;
+  }
+  
+  .Container-Items-And-Opcoes {
+    height: 100%;
+  
+  }
+  
+  /*Copo*/
+  .Glass-Item {
+    position: relative;
+    width: 110px;
+    min-width: 20%;
+    height: 220px;
+    min-height: 50%;
+    margin: auto;
+    top: 25%;
+    border: 1px solid #201e1e66;
+    color: transparent;
+    animation: tofill 1s forwards ease-in-out;
+    border-radius: 0 0 4px 4px;
+    transform: perspective(500px) rotateX(-45deg);
+    background-image: none;
+    background-position: center;
+    background-attachment: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .Glass-Background-Color {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(86, 127, 152, 0.145);
+  }
+  
+  /*Conteudo de dentro do copo*/
+  .Glass-Additional {
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    animation: 1.5s forwards ease-in-out;
+  
+  }
+  
+  /*Animação do copo enxendo*/
+  @keyframes toFill {
+    0% {
+      box-shadow: 0 0px inset;
+    }
+  
+    100% {
+      box-shadow: 0 -42vh inset;
+    }
+  }
+  
+  @keyframes secondToFill {
+    0% {
+      box-shadow: 0 0vh inset;
+    }
+  
+    100% {
+      box-shadow: 0 -42vh inset;
+    }
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    @keyframes toFill {
+      0% {
+        box-shadow: 0 0px inset;
+      }
+  
+      100% {
+        box-shadow: 0 -200px inset;
+      }
+    }
+  
+    @keyframes secondToFill {
+      0% {
+        box-shadow: 0 0vh inset;
+      }
+  
+      100% {
+        box-shadow: 0 -200px inset;
+      }
+    }
+  
+  }
+  
+  /*forms de ecolha dos produtos para comprar*/
+  .Container-Options-Item {
+    position: relative;
+    background-color: #2c2828;
+    border: 3px rgb(81, 81, 81) solid;
+    height: 100%;
+  
+  }
+  
+  .Container-Options-select>p {
+    color: white;
+    display: inline;
+    font-size: 20px;
+    text-align: justify;
+    padding-top: 30px;
+  
+  
+  
+  }
+  
+  .Container-Options-select>select,
+  .Informative-Div-inverse>select {
+    width: 250px;
+    max-width: 70%;
+    margin-left: 10px;
+  
+  }
+  
+  .Container-Options-select img {
+    width: 40px;
+    min-width: 35px;
+    max-width: 15%;
+    margin-top: 5px;
+  
+  
+  }
+  
+  .Container-Purchase-Value{
+    opacity: 0;
+    animation: 1s forwards ease-in-out;
+  }
+  .Container-Purchase-Value>h2 {
+    display: block;
+    color: white;
+    margin: 5px 0px 0px 50px;
+  }
+  
+  .Informative-Div-inverse,
+  .Informative-Div-inverse>select {
+    direction: rtl;
+    opacity: 0;
+    animation: 1s forwards ease-in-out;
+  }
+  
+  /*Estiliza os textos informativos da compra*/
+  .Informative-Texts,
+  .Informative-Texts>p {
+    position: relative;
+    display: inline;
+    color: #729c47;
+    width: 80%;
+    top: 2px;
+    margin: 2px;
+    font-size: 17px;
+    line-height: 0px;
+  }
+  
+  /*Botão de submit do pedido*/
+  .Container-Submit {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    opacity: 0;
+    animation: 1s forwards ease-in-out;
+  }
+  
+  .Container-Submit button {
+    width: 200px;
+    background-color: #729c47;
+    border: 1px solid #afda84;
+    margin-bottom: 10px;
+  
+  }
+  
+  /*Animação dos passos do pedido*/
+  @keyframes isVisibleOrNot {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }

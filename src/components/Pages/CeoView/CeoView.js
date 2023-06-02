@@ -1,10 +1,12 @@
 import { useState } from "react"
-import imgLogoCaipirinha from "../imagens/Logo-Caipirinha-Preto-Meia.png"
-import imgVazia from "../imagens/Fundo-transparente.png"
-import LoadingScreen from "./LoadingScreen";
+import imgLogoCaipirinha from "../../../imagens/Logo-Caipirinha-Preto-Meia.png"
+import imgVazia from "../../../imagens/Fundo-transparente.png"
+import LoadingScreen from "../../Loading/LoadingScreen";
+
+import './CeoView.css';
+
 let numberId = 0;
 var itemsSelected = undefined;
-
 
 function CeoView() {
 

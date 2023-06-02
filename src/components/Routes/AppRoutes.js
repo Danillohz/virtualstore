@@ -1,10 +1,10 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
 
-import Home from "./Home";
-import Login from "./Login"
-import CeoView from "./CeoView"
-import ClientView from "./ClientView";
+import Home from "../Pages/Home/Home";
+import Login from "../Pages/Login/Login"
+import CeoView from "../Pages/CeoView/CeoView"
+import ClientView from "../Pages/ClientView/ClientView";
 
 
 
