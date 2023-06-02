@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.d578e1fb.css",
-    "main.js": "/virtualstore/static/js/main.d55130b9.js",
+    "main.css": "/virtualstore/static/css/main.fab516c7.css",
+    "main.js": "/virtualstore/static/js/main.1a40ad96.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/fundo-folha-amarela.jpg": "/virtualstore/static/media/fundo-folha-amarela.5c4415f2aa8d3e24d57d.jpg",
     "static/media/limaoP.png": "/virtualstore/static/media/limaoP.8dc7b9b9075442a99bdf.png",
@@ -9,14 +9,18 @@
     "static/media/Logo-Caipirinha-Preto-Meia.png": "/virtualstore/static/media/Logo-Caipirinha-Preto-Meia.46a48be9a4188032315a.png",
     "static/media/morangoP.png": "/virtualstore/static/media/morangoP.40630837f40ae1e2fde7.png",
     "static/media/relation-two-bold.otf": "/virtualstore/static/media/relation-two-bold.4a9a8eeb12d0aa0891b9.otf",
+    "static/media/Número3Img.png": "/virtualstore/static/media/Número3Img.9e29727a99029adfffa9.png",
+    "static/media/Número2Img.png": "/virtualstore/static/media/Número2Img.18dfe7062576d985034f.png",
+    "static/media/Número4Img.png": "/virtualstore/static/media/Número4Img.b46b4217cda5ff5f9bc4.png",
+    "static/media/Número1Img.png": "/virtualstore/static/media/Número1Img.bfbfdeed4fc42e0f082a.png",
     "static/media/maracujaP.png": "/virtualstore/static/media/maracujaP.b6921199fd28a0cd9ccb.png",
     "index.html": "/virtualstore/index.html",
-    "main.d578e1fb.css.map": "/virtualstore/static/css/main.d578e1fb.css.map",
-    "main.d55130b9.js.map": "/virtualstore/static/js/main.d55130b9.js.map",
+    "main.fab516c7.css.map": "/virtualstore/static/css/main.fab516c7.css.map",
+    "main.1a40ad96.js.map": "/virtualstore/static/js/main.1a40ad96.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d578e1fb.css",
-    "static/js/main.d55130b9.js"
+    "static/css/main.fab516c7.css",
+    "static/js/main.1a40ad96.js"
   ]
 }
