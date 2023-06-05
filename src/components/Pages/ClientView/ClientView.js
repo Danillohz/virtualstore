@@ -17,8 +17,14 @@ let fruitEvent;
 let drinkEvent;
 let additionalEvent;
 
+let formattedPrice;
+
+let numberId = 0;
+
 function ClientView() {
 
+    const [allItems, setAllItems] = useState([])
+    const [stockValue, setStockValue] = useState("")
 
     const [drinkAnimReplay, setDrinkAnimReplay] = useState("toFill")
     const [additionalAnimReplay, setAdditionalAnimReplay] = useState("toFill")
@@ -67,7 +73,7 @@ function ClientView() {
         else if (drinkAnimReplay === "secondToFill") {
             setDrinkAnimReplay("toFill")
         }
-        
+
         //faz surgir o segundo passo de escolha do pedido
         drinkEvent = event.target.value
         selectedSelectors()
@@ -150,14 +156,23 @@ function ClientView() {
 
         if (additionalEvent === undefined || additionalEvent === "") {
             setAnimThirdStep("")
+            setTotalOrderAmont(11)
+
+        } else if (additionalEvent === "None") {
+
+            setTotalOrderAmont(11)
+
         } else {
             setAnimThirdStep("isVisibleOrNot")
+            setTotalOrderAmont(13)
         }
     }
 
-    const changeValuePrice = () => {
-
-    }
+    //Formata o preço do produto para o padrão BR
+    formattedPrice = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(totalOrderAmont)
 
     //Style para mudar a cor do fundo do copo
     const glassStyle = {
@@ -179,6 +194,25 @@ function ClientView() {
         animationName: animThirdStep
     }
 
+    //Envia o item para o carrinho
+    const handleCreateItemCart = () => {
+
+        const item = {
+            id: numberId,
+            drinkName: typeDrinkValue,
+            fruitName: fruitValue,
+            additionalName: additionalValue,
+            productPrice: formattedPrice
+
+        };
+
+        setAllItems([...allItems, item]);
+        setStockValue(stockValue - item.price);
+
+        numberId = numberId + 1;
+
+    }
+
     return (
         <>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -196,8 +230,23 @@ function ClientView() {
                     </button>
                 </header>
                 {isVisibleShoppingCart && (
-                    <div className="container-sm position-absolute top-50 start-50 translate-middle Container-Shopping-Cart">
-                        <div className="position-relative Items-Cart">Itens:</div>
+                    <div className="z-1 container-sm position-absolute top-50 start-50 translate-middle Container-Shopping-Cart">
+                        <div className="position-relative Items-Cart"><p>Itens:</p>
+                            {allItems.map(item => (
+                                <div className="z-2 Item" key={item.id}>
+                                    <div>
+                                        <li><p className="Number">{item.id}</p></li>
+                                        <div className="Inverse-Product">
+                                            <li><p className="Drink-Name">Caipirinha de {item.drinkName}</p></li>
+                                            <li><p className="Fruit-Name">- {item.fruitName}</p></li>
+                                            <li><p className="Additional-Name">- {item.additionalName}</p></li>
+                                            <li><p className="Product-Price">Valor: {item.productPrice}</p></li>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
                 <div className="row m-auto Container-Items-And-Opcoes">
@@ -249,6 +298,7 @@ function ClientView() {
                                     <option value="">Adicional</option>
                                     <option value="LeiteCondensado">Leite Condensado</option>
                                     <option value="Yakut">Yakut</option>
+                                    <option value="None">Nenhum</option>
                                 </select>
                             </div>
 
@@ -259,7 +309,7 @@ function ClientView() {
                                 <div className="Informative-Texts">
                                     <p>Confira o valor</p>
                                 </div>
-                                <h2>Valor Total: {totalOrderAmont}</h2>
+                                <h2>Valor Total: {formattedPrice}</h2>
 
 
                             </div>
@@ -270,7 +320,7 @@ function ClientView() {
                                 </div>
                             </div>
                             <div style={visibleThirdStep} className="mt-1 Container-Submit">
-                                <button type="submit" className="mt-3 btn btn-light mb-4">Adicionar ao Carrinho</button>
+                                <button type="submit" className="mt-3 btn btn-light mb-4" onClick={handleCreateItemCart}>Adicionar ao Carrinho</button>
                             </div>
                         </div>
 

@@ -16,8 +16,12 @@
     width: 90%;
     border: 1px solid rgb(81, 81, 81);
     border-radius: 10px;
-    color: rgb(192, 192, 192);
     margin-top: 10px;
+    padding: 0px 10px 0px 10px;
+  }
+  .Items-Cart > p{
+    color: rgb(192, 192, 192);
+   
   }
   
   .Container-Items-And-Opcoes {
@@ -200,4 +204,36 @@
     100% {
       opacity: 1;
     }
+  }
+
+  /*Itens que estarão dentro do carrinho*/
+  .Item{
+    background-color: #353333;
+    border-radius: 10px;
+    padding: 0px 10px;
+  }
+  p.Number{
+    display: inline;
+    color: white;
+    
+  }
+  p.Drink-Name{
+    display: inline;
+    color: white;
+  }
+
+  .Inverse-Product{
+    width: 100%;
+    text-align: end;
+  }
+  p.Fruit-Name{
+    display: inline;
+    color: rgba(255, 255, 255, 0.414);
+  }
+  p.Additional-Name{
+    display: inline;
+    color: rgba(255, 255, 255, 0.459);
+  }
+  p.Product-Price{
+    color: white;
   }
