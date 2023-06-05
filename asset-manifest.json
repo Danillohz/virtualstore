@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.21e19c31.css",
-    "main.js": "/virtualstore/static/js/main.f465ce14.js",
+    "main.css": "/virtualstore/static/css/main.2e10592b.css",
+    "main.js": "/virtualstore/static/js/main.fe11b788.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/fundo-folha-amarela.jpg": "/virtualstore/static/media/fundo-folha-amarela.5c4415f2aa8d3e24d57d.jpg",
     "static/media/limaoP.png": "/virtualstore/static/media/limaoP.8dc7b9b9075442a99bdf.png",
@@ -15,12 +15,12 @@
     "static/media/Número1Img.png": "/virtualstore/static/media/Número1Img.bfbfdeed4fc42e0f082a.png",
     "static/media/maracujaP.png": "/virtualstore/static/media/maracujaP.b6921199fd28a0cd9ccb.png",
     "index.html": "/virtualstore/index.html",
-    "main.21e19c31.css.map": "/virtualstore/static/css/main.21e19c31.css.map",
-    "main.f465ce14.js.map": "/virtualstore/static/js/main.f465ce14.js.map",
+    "main.2e10592b.css.map": "/virtualstore/static/css/main.2e10592b.css.map",
+    "main.fe11b788.js.map": "/virtualstore/static/js/main.fe11b788.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.21e19c31.css",
-    "static/js/main.f465ce14.js"
+    "static/css/main.2e10592b.css",
+    "static/js/main.fe11b788.js"
   ]
 }
