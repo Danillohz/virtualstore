@@ -55,10 +55,10 @@ function ClientView() {
             case "Vodka":
                 setBackgroundDrinkColor('#e1e1e162')
                 break
-            case "Wine":
+            case "Vinho":
                 setBackgroundDrinkColor('#5e2129ee')
                 break
-            case "Liquor":
+            case "Cachaça":
                 setBackgroundDrinkColor('#d69a6cee')
                 break
             default:
@@ -92,11 +92,11 @@ function ClientView() {
                 // Defina a imagem de fundo para a opção "Abacaxi"
                 setFruitImg(pineappleImg);
                 break;
-            case "Limao":
+            case "Limão":
                 // Defina a imagem de fundo para a opção "Limao"
                 setFruitImg(lemonImg);
                 break;
-            case "Maracuja":
+            case "Maracujá":
                 // Defina a imagem de fundo para a opção "Maracuja"
                 setFruitImg(passionImg);
                 break;
@@ -148,6 +148,7 @@ function ClientView() {
 
         if (drinkEvent === undefined || fruitEvent === undefined || drinkEvent === "" || fruitEvent === "") {
             setAnimSecondStep("")
+            additionalEvent = undefined
 
         } else {
             setAnimSecondStep("isVisibleOrNot")
@@ -158,8 +159,9 @@ function ClientView() {
             setAnimThirdStep("")
             setTotalOrderAmont(11)
 
-        } else if (additionalEvent === "None") {
+        } else if (additionalEvent === "Nenhum") {
 
+            setAnimThirdStep("isVisibleOrNot")
             setTotalOrderAmont(11)
 
         } else {
@@ -197,19 +199,36 @@ function ClientView() {
     //Envia o item para o carrinho
     const handleCreateItemCart = () => {
 
-        const item = {
-            id: numberId,
-            drinkName: typeDrinkValue,
-            fruitName: fruitValue,
-            additionalName: additionalValue,
-            productPrice: formattedPrice
+        if(drinkEvent !== undefined || fruitEvent !== undefined || additionalEvent !== undefined){
+            const item = {
+                id: numberId,
+                drinkName: typeDrinkValue,
+                fruitName: fruitValue,
+                additionalName: additionalValue,
+                productPrice: formattedPrice
+    
+            };
+    
+            setAllItems([...allItems, item]);
+            setStockValue(stockValue - item.price);
+    
+            numberId = numberId + 1;
+    
+            setTypeDrinkValue("")
+            setFruitValue("")
+            setAdditionalValue("")
+            drinkEvent = undefined
+            fruitEvent = undefined
+            additionalEvent = undefined
+            setTotalOrderAmont(0)
 
-        };
-
-        setAllItems([...allItems, item]);
-        setStockValue(stockValue - item.price);
-
-        numberId = numberId + 1;
+            console.log(drinkEvent)
+            console.log(fruitEvent)
+            console.log(additionalEvent)
+        }
+        else{
+            window.alert("Conclua todas etapas")
+        }
 
     }
 
@@ -230,23 +249,33 @@ function ClientView() {
                     </button>
                 </header>
                 {isVisibleShoppingCart && (
-                    <div className="z-1 container-sm position-absolute top-50 start-50 translate-middle Container-Shopping-Cart">
-                        <div className="position-relative Items-Cart"><p>Itens:</p>
+                    <div className="row z-1 m-auto Container-Shopping-Cart">
+                        <div className="col-2 position-relative Items-Cart"><p>Itens:</p>
                             {allItems.map(item => (
                                 <div className="z-2 Item" key={item.id}>
                                     <div>
                                         <li><p className="Number">{item.id}</p></li>
                                         <div className="Inverse-Product">
-                                            <li><p className="Drink-Name">Caipirinha de {item.drinkName}</p></li>
+                                            <li><p className="Drink-Name"> Caipirinha de {item.drinkName}</p></li>
                                             <li><p className="Fruit-Name">- {item.fruitName}</p></li>
                                             <li><p className="Additional-Name">- {item.additionalName}</p></li>
                                             <li><p className="Product-Price">Valor: {item.productPrice}</p></li>
                                         </div>
-
                                     </div>
                                 </div>
                             ))}
                         </div>
+                        <div className="col Payment-Form">
+
+                            <div className="Amount">
+                                <p>Valor Total:</p>
+                            </div>
+                            <div className="Forms">
+                                <label htmlFor="Client-Name" className="form-label">Nome:</label>
+                                <input type="text" className="form-control" id="Client-Name"></input>
+                            </div>
+                        </div>
+
                     </div>
                 )}
                 <div className="row m-auto Container-Items-And-Opcoes">
@@ -277,15 +306,15 @@ function ClientView() {
 
                                 <option value="">Bebida</option>
                                 <option value="Vodka">Vodka</option>
-                                <option value="Wine">Vinho</option>
-                                <option value="Liquor">Cachaça</option>
+                                <option value="Vinho">Vinho</option>
+                                <option value="Cachaça">Cachaça</option>
                             </select>
                             <select className="form-select mt-2" id="Select-TypeFruit" value={fruitValue} onChange={selectTypeFruit}>
                                 <option value="">Fruta</option>
                                 <option value="Morango">Morango</option>
                                 <option value="Abacaxi">Abacaxi</option>
-                                <option value="Limao">Limão</option>
-                                <option value="Maracuja">Maracujá</option>
+                                <option value="Limãoo">Limão</option>
+                                <option value="Maracujá">Maracujá</option>
                                 <option value="Coco">Coco</option>
                             </select>
 
@@ -296,9 +325,9 @@ function ClientView() {
                                 </div>
                                 <select style={visibleSecondStep} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
                                     <option value="">Adicional</option>
-                                    <option value="LeiteCondensado">Leite Condensado</option>
+                                    <option value="Leite Condensado">Leite Condensado</option>
                                     <option value="Yakut">Yakut</option>
-                                    <option value="None">Nenhum</option>
+                                    <option value="Nenhum">Nenhum</option>
                                 </select>
                             </div>
 
