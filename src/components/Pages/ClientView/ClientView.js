@@ -19,6 +19,7 @@ import './ClientView.css'
 let fruitEvent;
 let drinkEvent;
 let additionalEvent;
+let secondAdditionalEvent;
 
 let formattedFinalTotalAmount;
 let formattedPrice;
@@ -54,12 +55,13 @@ function ClientView() {
     const [secondAdditionalValue, setSecondAdditionalValue] = useState("")
     const [backgroundDrinkColor, setBackgroundDrinkColor] = useState("")
     const [backgroundAdditionalColor, setBackgroundAdditionalColor] = useState("")
+    const [backgroundSecondAdditionalColor, setBackgroundSecondAdditionalColor] = useState("")
     const [fruitImg, setFruitImg] = useState("")
 
     const [secondSelectFruitVisible, setSecondSelectFruitVisible] = useState(false)
     const [secondSelectAdditionalVisible, setSecondSelectAdditionalVisible] = useState(false)
 
-    const [totalOrderAmont, setTotalOrderAmont] = useState(11)
+    const [totalOrderAmont, setTotalOrderAmont] = useState(12)
 
     //Deixa o carrinho e seus itens escolhidos visíveis.
     const toggleVisibleShoppingCart = () => {
@@ -182,13 +184,7 @@ function ClientView() {
                 break;
         }
 
-        //replay da animação
-        if (additionalAnimReplay === "toFill") {
-            setAdditionalAnimReplay("secondToFill")
-        }
-        else if (additionalAnimReplay === "secondToFill") {
-            setAdditionalAnimReplay("toFill")
-        }
+        AdditionalAnimReplay()
 
         additionalEvent = event.target.value
         selectedSelectors();
@@ -199,23 +195,38 @@ function ClientView() {
 
         switch (event.target.value) {
             case "Leite Condensado":
-                setBackgroundAdditionalColor("#f0e6bbbf")
+                setBackgroundSecondAdditionalColor("#f0e6bbbf")
                 break;
             case "Yakut":
-                setBackgroundAdditionalColor("#ffffffa1")
+                setBackgroundSecondAdditionalColor("#ffffffa1")
                 break;
 
             default:
-                setBackgroundAdditionalColor("")
+                setBackgroundSecondAdditionalColor("")
                 break;
         }
 
+        AdditionalAnimReplay()
+
+        secondAdditionalEvent = event.target.value
+        selectedSelectors();
+
     }
 
+    function AdditionalAnimReplay() {
 
-    //faz surgir o segundo passo de escolha do pedido
+        //replay da animação
+        if (additionalAnimReplay === "toFill") {
+            setAdditionalAnimReplay("secondToFill")
+        }
+        else if (additionalAnimReplay === "secondToFill") {
+            setAdditionalAnimReplay("toFill")
+        }
+    }
+    
     function selectedSelectors() {
 
+        //faz surgir o segundo passo de escolha do pedido
         if (drinkEvent === undefined || fruitEvent === undefined || drinkEvent === "" || fruitEvent === "") {
             setAnimSecondStep("")
             additionalEvent = undefined
@@ -225,19 +236,30 @@ function ClientView() {
 
         }
 
+        //faz surgir o terceiro passo de escolha do pedido
         if (additionalEvent === undefined || additionalEvent === "") {
             setAnimThirdStep("")
-            setTotalOrderAmont(11)
+            
 
         } else if (additionalEvent === "Nenhum") {
 
             setAnimThirdStep("isVisibleOrNot")
-            setTotalOrderAmont(11)
+            
 
         } else {
             setAnimThirdStep("isVisibleOrNot")
-            setTotalOrderAmont(13)
+            
+            
         }
+
+        //Muda o preço total
+        if ((additionalEvent === "" || additionalEvent === undefined || additionalEvent === "Nenhum") && (secondAdditionalEvent === "" || secondAdditionalEvent === undefined)) {
+            setTotalOrderAmont(12);
+          } else if ((additionalEvent !== "" && additionalEvent !== undefined && additionalEvent !== "Nenhum") && (secondAdditionalEvent !== "" && secondAdditionalEvent !== undefined)) {
+            setTotalOrderAmont(16);
+          } else {
+            setTotalOrderAmont(14);
+          }
     }
 
     //Formata o preço do produto para o padrão BR
@@ -255,6 +277,10 @@ function ClientView() {
     //Style para mudar a cor do addicional no fundo do copo
     const additionalStyle = {
         color: backgroundAdditionalColor,
+        animationName: additionalAnimReplay
+    }
+    const secondAditionalStyle = {
+        color: backgroundSecondAdditionalColor,
         animationName: additionalAnimReplay
     }
     //Ativa a opacidade do segundo passo
@@ -413,8 +439,9 @@ function ClientView() {
 
                         <div style={glassStyle} className="mb-5 z-n1 Glass-Item">
                             <div style={additionalStyle} className="z-1 Glass-Additional">
-                                <div className="z-1 Glass-Background-Color">
-
+                                <div style={secondAditionalStyle} className="z-1 Glass-SecondAdditional">
+                                    <div className="z-1 Glass-Background-Color">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -447,7 +474,7 @@ function ClientView() {
                                 <option value="Abacaxi">Abacaxi</option>
                                 <option value="Limão">Limão</option>
                                 <option value="Maracujá">Maracujá</option>
-                                <option value="Coco">Coco</option>
+                               
                             </select>
 
                             <div className="d-flex mt-1 align-items-center Container-Fruit-Selector">
@@ -458,7 +485,7 @@ function ClientView() {
                                         <option value="Abacaxi">Abacaxi</option>
                                         <option value="Limãoo">Limão</option>
                                         <option value="Maracujá">Maracujá</option>
-                                        <option value="Coco">Coco</option>
+                                        
                                     </select>
                                 )}
                                 {!secondSelectFruitVisible ? (
@@ -496,7 +523,7 @@ function ClientView() {
 
                                         <button className="btn btn-light" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible) }} >+</button>
 
-                                    ) : (<button className="btn btn-danger" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible); setSecondAdditionalValue(undefined) }}>x</button>)}
+                                    ) : (<button className="btn btn-danger" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible); setSecondAdditionalValue(undefined); setBackgroundSecondAdditionalColor("")}}>x</button>)}
                                 </div>
 
 

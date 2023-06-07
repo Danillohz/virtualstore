@@ -46,6 +46,12 @@
   animation: 1.5s forwards ease-in-out;
 
 }
+.Glass-SecondAdditional{
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  animation: 1.5s forwards ease-in-out;
+}
 
 /*Animação do copo enxendo*/
 @keyframes toFill {
@@ -281,7 +287,7 @@ p.Product-Price {
 }
 
 .Item {
-  width: 300px;
+  width: 200px;
   min-width: 45%;
   margin: 5px;
 }
@@ -319,11 +325,16 @@ p.Product-Price {
   border: 1px solid rgb(81, 81, 81);
   border-radius: 10px;
   padding: 10px 10px 10px 10px;
+  text-align: center;
+  
 
 }
 
 .Amount>p {
   margin: 0px;
+  background-color: #353333;
+  border-radius: 10px;
+  
 }
 
 .Purchase-Btn {
