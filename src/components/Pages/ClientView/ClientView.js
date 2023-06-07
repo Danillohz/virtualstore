@@ -1,6 +1,9 @@
 import LoadingScreen from "../../Loading/LoadingScreen"
 import imgLogoCaipirinha from "../../../imagens/Logo-Caipirinha-Preto-Meia.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Tooltip } from 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 import pineappleImg from "../../../imagens/fruits/abacaxiP.png"
 import lemonImg from "../../../imagens/fruits/limaoP.png"
@@ -17,11 +20,22 @@ let fruitEvent;
 let drinkEvent;
 let additionalEvent;
 
+let formattedFinalTotalAmount;
 let formattedPrice;
+let finalTotalAmount = 0
 
 let numberId = 0;
+let itemNumber = 1;
+
 
 function ClientView() {
+
+    useEffect(() => {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipTriggerList.forEach((tooltipTriggerEl) => {
+            new Tooltip(tooltipTriggerEl);
+        });
+    }, []);
 
     const [allItems, setAllItems] = useState([])
     const [stockValue, setStockValue] = useState("")
@@ -35,10 +49,15 @@ function ClientView() {
 
     const [typeDrinkValue, setTypeDrinkValue] = useState("")
     const [fruitValue, setFruitValue] = useState("")
+    const [secondfruitValue, setSecondFruitValue] = useState("")
     const [additionalValue, setAdditionalValue] = useState("")
+    const [secondAdditionalValue, setSecondAdditionalValue] = useState("")
     const [backgroundDrinkColor, setBackgroundDrinkColor] = useState("")
     const [backgroundAdditionalColor, setBackgroundAdditionalColor] = useState("")
     const [fruitImg, setFruitImg] = useState("")
+
+    const [secondSelectFruitVisible, setSecondSelectFruitVisible] = useState(false)
+    const [secondSelectAdditionalVisible, setSecondSelectAdditionalVisible] = useState(false)
 
     const [totalOrderAmont, setTotalOrderAmont] = useState(11)
 
@@ -80,7 +99,7 @@ function ClientView() {
 
     }
 
-    const selectTypeFruit = (event) => {
+    const selectFruitType = (event) => {
         setFruitValue(event.target.value)
 
         switch (event.target.value) {
@@ -114,11 +133,44 @@ function ClientView() {
         selectedSelectors()
     }
 
-    const selectAdditionalType = (event) => {
+    const selectSecondFruitType = (event) => {
+        setSecondFruitValue(event.target.value)
+
+        switch (event.target.value) {
+            case "Morango":
+                // Defina a imagem de fundo para a opção "Morango"
+                setFruitImg(stranwberryImg);
+                break;
+            case "Abacaxi":
+                // Defina a imagem de fundo para a opção "Abacaxi"
+                setFruitImg(pineappleImg);
+                break;
+            case "Limão":
+                // Defina a imagem de fundo para a opção "Limao"
+                setFruitImg(lemonImg);
+                break;
+            case "Maracujá":
+                // Defina a imagem de fundo para a opção "Maracuja"
+                setFruitImg(passionImg);
+                break;
+            case "Coco":
+                // Defina a imagem de fundo para a opção "Coco"
+
+                break;
+            default:
+                setFruitImg("");
+                break;
+        }
+
+
+
+    }
+
+    const selectTypeAdditional = (event) => {
         setAdditionalValue(event.target.value)
 
         switch (event.target.value) {
-            case "LeiteCondensado":
+            case "Leite Condensado":
                 setBackgroundAdditionalColor("#f0e6bbbf")
                 break;
             case "Yakut":
@@ -140,8 +192,26 @@ function ClientView() {
 
         additionalEvent = event.target.value
         selectedSelectors();
+    }
+
+    const selectSecondTypeAdditional = (event) => {
+        setSecondAdditionalValue(event.target.value)
+
+        switch (event.target.value) {
+            case "Leite Condensado":
+                setBackgroundAdditionalColor("#f0e6bbbf")
+                break;
+            case "Yakut":
+                setBackgroundAdditionalColor("#ffffffa1")
+                break;
+
+            default:
+                setBackgroundAdditionalColor("")
+                break;
+        }
 
     }
+
 
     //faz surgir o segundo passo de escolha do pedido
     function selectedSelectors() {
@@ -199,41 +269,87 @@ function ClientView() {
     //Envia o item para o carrinho
     const handleCreateItemCart = () => {
 
-        if(drinkEvent !== undefined || fruitEvent !== undefined || additionalEvent !== undefined){
+        if ((drinkEvent !== undefined || fruitEvent !== undefined || additionalEvent !== undefined) && fruitValue !== secondfruitValue && additionalValue !== secondAdditionalValue) {
             const item = {
                 id: numberId,
+                itemNumber: itemNumber,
                 drinkName: typeDrinkValue,
                 fruitName: fruitValue,
+                secondFruitName: secondfruitValue,
                 additionalName: additionalValue,
-                productPrice: formattedPrice
-    
+                secondAdditionalName: secondAdditionalValue,
+                productPrice: formattedPrice,
+                productPriceNumber: totalOrderAmont
+
+
             };
-    
+
             setAllItems([...allItems, item]);
             setStockValue(stockValue - item.price);
-    
-            numberId = numberId + 1;
-    
+
+            finalTotalAmount = finalTotalAmount + totalOrderAmont;
+
+            formattedFinalTotalAmount = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(finalTotalAmount)
+
+            numberId++;
+            itemNumber++;
+
             setTypeDrinkValue("")
             setFruitValue("")
+            setSecondFruitValue("")
             setAdditionalValue("")
             drinkEvent = undefined
             fruitEvent = undefined
             additionalEvent = undefined
+            selectedSelectors()
+
             setTotalOrderAmont(0)
 
             console.log(drinkEvent)
             console.log(fruitEvent)
             console.log(additionalEvent)
         }
-        else{
+        else if (fruitValue === secondfruitValue || additionalValue === secondAdditionalValue) {
+            window.alert("O adicional ou as frutas tem que ser diferentes")
+        }
+        else {
             window.alert("Conclua todas etapas")
         }
 
     }
 
+    const handleDeleteItemCart = (item) => {
+
+        //Filtra os items para excluir aquele que foi clicado
+        const itemsNotDeleted = allItems.filter((cartItem) => cartItem.id !== item.id);
+        // Atualiza os itemNumber dos itens restantes
+        const updatedItems = itemsNotDeleted.map((cartItem, index) => ({
+            ...cartItem,
+            itemNumber: index + 1,
+        }));
+        setAllItems(updatedItems);
+
+
+
+        finalTotalAmount = finalTotalAmount - item.productPriceNumber;
+
+        formattedFinalTotalAmount = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(finalTotalAmount)
+
+
+
+
+    }
+
     return (
         <>
+
+
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
             <div className="Container-body-Client">
@@ -250,31 +366,45 @@ function ClientView() {
                 </header>
                 {isVisibleShoppingCart && (
                     <div className="row z-1 m-auto Container-Shopping-Cart">
-                        <div className="col-2 position-relative Items-Cart"><p>Itens:</p>
+                        <div className="row col position-relative Items-Cart"><p>Itens:</p>
                             {allItems.map(item => (
-                                <div className="z-2 Item" key={item.id}>
+                                <div className="col z-2 Item" key={item.id}>
                                     <div>
-                                        <li><p className="Number">{item.id}</p></li>
+                                        <div className="row">
+                                            <li className="col"><p className="Number">{item.itemNumber}</p></li>
+                                            <div className="col Delete-Item">
+                                                <button onClick={() => handleDeleteItemCart(item)}>delete</button>
+                                            </div>
+                                        </div>
                                         <div className="Inverse-Product">
                                             <li><p className="Drink-Name"> Caipirinha de {item.drinkName}</p></li>
                                             <li><p className="Fruit-Name">- {item.fruitName}</p></li>
+                                            {(item.secondFruitName !== undefined && item.secondFruitName !== "") && (
+                                                <li><p className="Fruit-Name">- {item.secondFruitName}</p></li>
+                                            )}
                                             <li><p className="Additional-Name">- {item.additionalName}</p></li>
+                                            {(item.secondAdditionalName !== undefined && item.secondAdditionalName !== "") && (
+                                                <li><p className="Additional-Name">- {item.secondAdditionalName}</p></li>
+                                            )}
                                             <li><p className="Product-Price">Valor: {item.productPrice}</p></li>
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <div className="col Payment-Form">
 
+
+                        <div className="Purchase">
                             <div className="Amount">
-                                <p>Valor Total:</p>
+                                <p>Valor Total: {formattedFinalTotalAmount}</p>
                             </div>
-                            <div className="Forms">
-                                <label htmlFor="Client-Name" className="form-label">Nome:</label>
-                                <input type="text" className="form-control" id="Client-Name"></input>
+                            <div className="Purchase-Btn">
+                                <button type="submit" className="btn btn-light">Comprar</button>
                             </div>
                         </div>
+
+
+
 
                     </div>
                 )}
@@ -309,26 +439,67 @@ function ClientView() {
                                 <option value="Vinho">Vinho</option>
                                 <option value="Cachaça">Cachaça</option>
                             </select>
-                            <select className="form-select mt-2" id="Select-TypeFruit" value={fruitValue} onChange={selectTypeFruit}>
+
+
+                            <select className="mt-1 form-select" id="Select-TypeFruit" value={fruitValue} onChange={selectFruitType}>
                                 <option value="">Fruta</option>
                                 <option value="Morango">Morango</option>
                                 <option value="Abacaxi">Abacaxi</option>
-                                <option value="Limãoo">Limão</option>
+                                <option value="Limão">Limão</option>
                                 <option value="Maracujá">Maracujá</option>
                                 <option value="Coco">Coco</option>
                             </select>
+
+                            <div className="d-flex mt-1 align-items-center Container-Fruit-Selector">
+                                {secondSelectFruitVisible && (
+                                    <select className="me-1 form-select" id="Select-TypeFruit" value={secondfruitValue} onChange={selectSecondFruitType}>
+                                        <option value="">Fruta</option>
+                                        <option value="Morango">Morango</option>
+                                        <option value="Abacaxi">Abacaxi</option>
+                                        <option value="Limãoo">Limão</option>
+                                        <option value="Maracujá">Maracujá</option>
+                                        <option value="Coco">Coco</option>
+                                    </select>
+                                )}
+                                {!secondSelectFruitVisible ? (
+
+                                    <button className=" btn btn-light" onClick={() => { setSecondSelectFruitVisible(!secondSelectFruitVisible) }} >+</button>
+
+                                ) : (<button className=" btn btn-danger" onClick={() => { setSecondSelectFruitVisible(!secondSelectFruitVisible); setSecondFruitValue(undefined) }}>x</button>)}
+                            </div>
+
 
                             <div style={visibleSecondStep} className="Informative-Div-inverse">
                                 <img src={Número2Img} alt=""></img>
                                 <div className="Informative-Texts">
                                     <p>Escolha seu adicional</p>
                                 </div>
-                                <select style={visibleSecondStep} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectAdditionalType}>
+
+                                <select style={visibleSecondStep} className="form-select mt-2" id="Select-TypeAdditional" value={additionalValue} onChange={selectTypeAdditional}>
                                     <option value="">Adicional</option>
                                     <option value="Leite Condensado">Leite Condensado</option>
                                     <option value="Yakut">Yakut</option>
                                     <option value="Nenhum">Nenhum</option>
                                 </select>
+
+
+                                <div className="d-flex mt-1 align-items-center Container-Additional-Selector">
+                                    {secondSelectAdditionalVisible && (
+                                        <select style={visibleSecondStep} className="ms-1 form-select" id="Select-TypeAdditional" value={secondAdditionalValue} onChange={selectSecondTypeAdditional}>
+                                            <option value="">Adicional</option>
+                                            <option value="Leite Condensado">Leite Condensado</option>
+                                            <option value="Yakut">Yakut</option>
+                                            
+                                        </select>
+                                    )}
+                                    {!secondSelectAdditionalVisible ? (
+
+                                        <button className="btn btn-light" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible) }} >+</button>
+
+                                    ) : (<button className="btn btn-danger" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible); setSecondAdditionalValue(undefined) }}>x</button>)}
+                                </div>
+
+
                             </div>
 
 
@@ -355,9 +526,14 @@ function ClientView() {
 
                     </div>
                 </div>
+
             </div>
+
         </>
+
     )
+
 }
 
-export default ClientView
+
+export default ClientView;
