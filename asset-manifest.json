@@ -1,26 +1,28 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.0e8bb3fc.css",
-    "main.js": "/virtualstore/static/js/main.1711ba5b.js",
+    "main.css": "/virtualstore/static/css/main.f22d8007.css",
+    "main.js": "/virtualstore/static/js/main.46e2f098.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/fundo-folha-amarela.jpg": "/virtualstore/static/media/fundo-folha-amarela.5c4415f2aa8d3e24d57d.jpg",
-    "static/media/limaoP.png": "/virtualstore/static/media/limaoP.8dc7b9b9075442a99bdf.png",
-    "static/media/abacaxiP.png": "/virtualstore/static/media/abacaxiP.d968f49df02993b8bd62.png",
     "static/media/Logo-Caipirinha-Preto-Meia.png": "/virtualstore/static/media/Logo-Caipirinha-Preto-Meia.46a48be9a4188032315a.png",
-    "static/media/morangoP.png": "/virtualstore/static/media/morangoP.40630837f40ae1e2fde7.png",
+    "static/media/delivery.PNG": "/virtualstore/static/media/delivery.5a9f8c2c136ee6d74752.PNG",
+    "static/media/retirada.png": "/virtualstore/static/media/retirada.d8ad026f3aa0b49c8cdf.png",
     "static/media/relation-two-bold.otf": "/virtualstore/static/media/relation-two-bold.4a9a8eeb12d0aa0891b9.otf",
+    "static/media/limaoP.png": "/virtualstore/static/media/limaoP.8bd0ae7369812ef8ec34.png",
+    "static/media/morangoP.png": "/virtualstore/static/media/morangoP.3d84192a8f4da843e70b.png",
+    "static/media/abacaxiP.png": "/virtualstore/static/media/abacaxiP.ca489bf1f54c97f6fe5f.png",
     "static/media/Número3Img.png": "/virtualstore/static/media/Número3Img.9e29727a99029adfffa9.png",
     "static/media/Número2Img.png": "/virtualstore/static/media/Número2Img.18dfe7062576d985034f.png",
     "static/media/Número4Img.png": "/virtualstore/static/media/Número4Img.b46b4217cda5ff5f9bc4.png",
     "static/media/Número1Img.png": "/virtualstore/static/media/Número1Img.bfbfdeed4fc42e0f082a.png",
     "static/media/maracujaP.png": "/virtualstore/static/media/maracujaP.b6921199fd28a0cd9ccb.png",
     "index.html": "/virtualstore/index.html",
-    "main.0e8bb3fc.css.map": "/virtualstore/static/css/main.0e8bb3fc.css.map",
-    "main.1711ba5b.js.map": "/virtualstore/static/js/main.1711ba5b.js.map",
+    "main.f22d8007.css.map": "/virtualstore/static/css/main.f22d8007.css.map",
+    "main.46e2f098.js.map": "/virtualstore/static/js/main.46e2f098.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e8bb3fc.css",
-    "static/js/main.1711ba5b.js"
+    "static/css/main.f22d8007.css",
+    "static/js/main.46e2f098.js"
   ]
 }
