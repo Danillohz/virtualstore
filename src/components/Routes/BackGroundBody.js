@@ -13,6 +13,8 @@ export default function BackgroundColor() {
           ? '#729c47'
           : location.pathname === '/clientview'
           ? '#729c47'
+          : location.pathname === '/payment'
+          ? 'white'
           : null;
     
         document.body.style.backgroundColor = background || '';

@@ -15,6 +15,7 @@ import Número3Img from "../../../imagens/numeros/Número3Img.png"
 import Número4Img from "../../../imagens/numeros/Número4Img.png"
 
 import './ClientView.css'
+import { Link } from "react-router-dom";
 
 let fruitEvent;
 let drinkEvent;
@@ -57,6 +58,7 @@ function ClientView() {
     const [backgroundAdditionalColor, setBackgroundAdditionalColor] = useState("")
     const [backgroundSecondAdditionalColor, setBackgroundSecondAdditionalColor] = useState("")
     const [fruitImg, setFruitImg] = useState("")
+    const [secondFruitImg, setSecondFruitImg] = useState("")
 
     const [secondSelectFruitVisible, setSecondSelectFruitVisible] = useState(false)
     const [secondSelectAdditionalVisible, setSecondSelectAdditionalVisible] = useState(false)
@@ -141,30 +143,30 @@ function ClientView() {
         switch (event.target.value) {
             case "Morango":
                 // Defina a imagem de fundo para a opção "Morango"
-                setFruitImg(stranwberryImg);
+                setSecondFruitImg(stranwberryImg);
                 break;
             case "Abacaxi":
                 // Defina a imagem de fundo para a opção "Abacaxi"
-                setFruitImg(pineappleImg);
+                setSecondFruitImg(pineappleImg);
                 break;
             case "Limão":
                 // Defina a imagem de fundo para a opção "Limao"
-                setFruitImg(lemonImg);
+                setSecondFruitImg(lemonImg);
                 break;
             case "Maracujá":
                 // Defina a imagem de fundo para a opção "Maracuja"
-                setFruitImg(passionImg);
+                setSecondFruitImg(passionImg);
                 break;
             case "Coco":
                 // Defina a imagem de fundo para a opção "Coco"
 
                 break;
             default:
-                setFruitImg("");
+                setSecondFruitImg("");
                 break;
         }
 
-
+        selectedSelectors()
 
     }
 
@@ -208,8 +210,7 @@ function ClientView() {
 
         AdditionalAnimReplay()
 
-        secondAdditionalEvent = event.target.value
-        selectedSelectors();
+
 
     }
 
@@ -223,7 +224,7 @@ function ClientView() {
             setAdditionalAnimReplay("toFill")
         }
     }
-    
+
     function selectedSelectors() {
 
         //faz surgir o segundo passo de escolha do pedido
@@ -239,27 +240,27 @@ function ClientView() {
         //faz surgir o terceiro passo de escolha do pedido
         if (additionalEvent === undefined || additionalEvent === "") {
             setAnimThirdStep("")
-            
+
 
         } else if (additionalEvent === "Nenhum") {
 
             setAnimThirdStep("isVisibleOrNot")
-            
+
 
         } else {
             setAnimThirdStep("isVisibleOrNot")
-            
-            
+
+
         }
 
         //Muda o preço total
         if ((additionalEvent === "" || additionalEvent === undefined || additionalEvent === "Nenhum") && (secondAdditionalEvent === "" || secondAdditionalEvent === undefined)) {
             setTotalOrderAmont(12);
-          } else if ((additionalEvent !== "" && additionalEvent !== undefined && additionalEvent !== "Nenhum") && (secondAdditionalEvent !== "" && secondAdditionalEvent !== undefined)) {
+        } else if ((additionalEvent !== "" && additionalEvent !== undefined && additionalEvent !== "Nenhum") && (secondAdditionalEvent !== "" && secondAdditionalEvent !== undefined)) {
             setTotalOrderAmont(16);
-          } else {
+        } else {
             setTotalOrderAmont(14);
-          }
+        }
     }
 
     //Formata o preço do produto para o padrão BR
@@ -267,30 +268,6 @@ function ClientView() {
         style: 'currency',
         currency: 'BRL'
     }).format(totalOrderAmont)
-
-    //Style para mudar a cor do fundo do copo
-    const glassStyle = {
-        color: backgroundDrinkColor,
-        backgroundImage: `url(${fruitImg})`,
-        animationName: drinkAnimReplay
-    }
-    //Style para mudar a cor do addicional no fundo do copo
-    const additionalStyle = {
-        color: backgroundAdditionalColor,
-        animationName: additionalAnimReplay
-    }
-    const secondAditionalStyle = {
-        color: backgroundSecondAdditionalColor,
-        animationName: additionalAnimReplay
-    }
-    //Ativa a opacidade do segundo passo
-    const visibleSecondStep = {
-        animationName: animSecondStep
-    }
-    //Ativa a opacidade do terceiro e do quarto
-    const visibleThirdStep = {
-        animationName: animThirdStep
-    }
 
     //Envia o item para o carrinho
     const handleCreateItemCart = () => {
@@ -367,9 +344,37 @@ function ClientView() {
             currency: 'BRL'
         }).format(finalTotalAmount)
 
+    }
 
-
-
+    //Style para mudar a cor do fundo do copo
+    const drinkStyle = {
+        color: backgroundDrinkColor,
+        animationName: drinkAnimReplay
+    }
+    //
+    const FruitStyle = {
+        backgroundImage: `url(${fruitImg})`
+    }
+    //
+    const secondFruitStyle = {
+        backgroundImage: `url(${secondFruitImg})`
+    }
+    //Style para mudar a cor do addicional no fundo do copo
+    const additionalStyle = {
+        color: backgroundAdditionalColor,
+        animationName: additionalAnimReplay
+    }
+    const secondAditionalStyle = {
+        color: backgroundSecondAdditionalColor,
+        animationName: additionalAnimReplay
+    }
+    //Ativa a opacidade do segundo passo
+    const visibleSecondStep = {
+        animationName: animSecondStep
+    }
+    //Ativa a opacidade do terceiro e do quarto
+    const visibleThirdStep = {
+        animationName: animThirdStep
     }
 
     return (
@@ -424,9 +429,11 @@ function ClientView() {
                             <div className="Amount">
                                 <p>Valor Total: {formattedFinalTotalAmount}</p>
                             </div>
-                            <div className="Purchase-Btn">
+
+                            <Link to="/payment" className="Purchase-Btn">
                                 <button type="submit" className="btn btn-light">Comprar</button>
-                            </div>
+                            </Link>
+
                         </div>
 
 
@@ -437,13 +444,22 @@ function ClientView() {
                 <div className="row m-auto Container-Items-And-Opcoes">
                     <div className="col Container-Item">
 
-                        <div style={glassStyle} className="mb-5 z-n1 Glass-Item">
-                            <div style={additionalStyle} className="z-1 Glass-Additional">
-                                <div style={secondAditionalStyle} className="z-1 Glass-SecondAdditional">
-                                    <div className="z-1 Glass-Background-Color">
+                        <div className="mb-5 Glass-Item">
+
+
+                            <div style={FruitStyle} className="Fruit-Background">
+                                <div style={secondFruitStyle} className="Second-Fruit-Background">
+                                    <div style={additionalStyle} className=" Glass-Additional">
+                                        <div style={secondAditionalStyle} className=" Glass-SecondAdditional">
+                                            <div className=" Glass-Background-Color">
+                                                <div style={drinkStyle} className="Drink-Background"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
 
 
@@ -474,7 +490,7 @@ function ClientView() {
                                 <option value="Abacaxi">Abacaxi</option>
                                 <option value="Limão">Limão</option>
                                 <option value="Maracujá">Maracujá</option>
-                               
+
                             </select>
 
                             <div className="d-flex mt-1 align-items-center Container-Fruit-Selector">
@@ -483,9 +499,9 @@ function ClientView() {
                                         <option value="">Fruta</option>
                                         <option value="Morango">Morango</option>
                                         <option value="Abacaxi">Abacaxi</option>
-                                        <option value="Limãoo">Limão</option>
+                                        <option value="Limão">Limão</option>
                                         <option value="Maracujá">Maracujá</option>
-                                        
+
                                     </select>
                                 )}
                                 {!secondSelectFruitVisible ? (
@@ -516,14 +532,14 @@ function ClientView() {
                                             <option value="">Adicional</option>
                                             <option value="Leite Condensado">Leite Condensado</option>
                                             <option value="Yakut">Yakut</option>
-                                            
+
                                         </select>
                                     )}
                                     {!secondSelectAdditionalVisible ? (
 
                                         <button className="btn btn-light" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible) }} >+</button>
 
-                                    ) : (<button className="btn btn-danger" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible); setSecondAdditionalValue(undefined); setBackgroundSecondAdditionalColor("")}}>x</button>)}
+                                    ) : (<button className="btn btn-danger" onClick={() => { setSecondSelectAdditionalVisible(!secondSelectAdditionalVisible); setSecondAdditionalValue(undefined); setBackgroundSecondAdditionalColor("") }}>x</button>)}
                                 </div>
 
 
@@ -554,7 +570,7 @@ function ClientView() {
                     </div>
                 </div>
 
-            </div>
+            </div >
 
         </>
 

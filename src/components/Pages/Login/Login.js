@@ -42,43 +42,44 @@ export default function Login(props) {
   
 
     return (
-      <div className="Login-form-container">
-        <form className="Login-form">
-          <div className="Login-form-content">
-            <h3 className="Login-form-title">Sign In</h3>
-            <div className="form-group mt-3">
-              <label>Email address</label>
-              <input
-                type="email"
-                className="form-control mt-1"
-                placeholder="Enter email"
-                value={emailValue}
-                onChange={handleEmailChange}
-              />
+      <main>
+        <div className="Login-form-container">
+          <form className="Login-form">
+            <div className="Login-form-content">
+              <h3 className="Login-form-title">Sign In</h3>
+              <div className="form-group mt-3">
+                <label>Email address</label>
+                <input
+                  type="email"
+                  className="form-control mt-1"
+                  placeholder="Enter email"
+                  value={emailValue}
+                  onChange={handleEmailChange}
+                />
+              </div>
+              <div className="form-group mt-3">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control mt-1"
+                  placeholder="Enter password"
+                  value={passwordValue}
+                  onChange={handlePasswordChange}
+                />
+              </div>
+              <div className="d-grid gap-2 mt-3">
+                <button type="submit" className="btn btn btn-outline-dark" onClick={loginSubmit}>
+                  Submit
+                </button>
+              </div>
+              <div className=" d-md-flex justify-content-md-end ">
+                <button className="btn btn-outline-secondary mt-3" type="button" onClick={ceoEmailPassword}>CEO</button>
+                <button className="btn btn-outline-secondary mx-2 mt-3" type="button" onClick={clientEmailPassword}>Client</button>
+              </div>
             </div>
-            <div className="form-group mt-3">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control mt-1"
-                placeholder="Enter password"
-                value={passwordValue}
-                onChange={handlePasswordChange}
-              />
-            </div>
-            <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn btn-outline-dark" onClick={loginSubmit}>
-                Submit
-              </button>
-            </div>
-            <div className=" d-md-flex justify-content-md-end ">
-              <button className="btn btn-outline-secondary mt-3" type="button" onClick={ceoEmailPassword}>CEO</button>
-              <button className="btn btn-outline-secondary mx-2 mt-3" type="button" onClick={clientEmailPassword}>Client</button>
-            </div>
-
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </main>
     )
   
 }

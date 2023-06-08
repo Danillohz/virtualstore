@@ -1,0 +1,60 @@
+
+
+.Container-Center{
+    width: 600px;
+    height: auto;
+    max-width: 100%;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    background-color: white;
+}
+.Delivery-Or-Withdrawal{
+    width: 100%;
+    height: 100%;  
+    
+    
+}
+.Delivery-Or-Withdrawal-Btns{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.Delivery-Or-Withdrawal-Btns > div > button {
+    width: 80%;
+    height: 0;
+    margin: 15% 0;
+    padding-bottom: 70%;
+    box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.086);
+}
+
+.Delivery-Btn button{
+    background: black url("../../../imagens/delivery.PNG") no-repeat center center;
+    background-size: cover;
+}
+.Withdrawal-Btn button{
+    background: black url("../../../imagens/retirada.png") no-repeat center center;
+    background-size: cover;
+    
+}
+
+/* estilo das coisas referentes a localização */
+.Location-Form{
+    width: 100%;
+    margin: auto;
+}
+.Location-Form > div >input{
+    width: 100%;
+}
+.Location-Form > div >label{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.Proceed-Btn{
+    width: 100%;
+    text-align: right;
+}
+
+
