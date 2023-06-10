@@ -1,6 +1,8 @@
 import LoadingScreen from "../../Loading/LoadingScreen"
 import imgLogoCaipirinha from "../../../imagens/Logo-Caipirinha-Preto-Meia.png"
 import { useEffect, useState } from "react";
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tooltip } from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -15,7 +17,7 @@ import Número3Img from "../../../imagens/numeros/Número3Img.png"
 import Número4Img from "../../../imagens/numeros/Número4Img.png"
 
 import './ClientView.css'
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 let fruitEvent;
 let drinkEvent;
@@ -38,6 +40,8 @@ function ClientView() {
             new Tooltip(tooltipTriggerEl);
         });
     }, []);
+
+    const navigate = useNavigate();
 
     const [allItems, setAllItems] = useState([])
     const [stockValue, setStockValue] = useState("")
@@ -346,6 +350,16 @@ function ClientView() {
 
     }
 
+    //Botão de ir para compra caso o carrinho não esteja vazio 
+    const goForPurchase = () =>{
+
+        if(allItems.length >= 1){
+            navigate('/payment');
+        } else{
+            window.alert("Carrinho está vazio")
+        }
+    }
+
     //Style para mudar a cor do fundo do copo
     const drinkStyle = {
         color: backgroundDrinkColor,
@@ -430,9 +444,9 @@ function ClientView() {
                                 <p>Valor Total: {formattedFinalTotalAmount}</p>
                             </div>
 
-                            <Link to="/payment" className="Purchase-Btn">
-                                <button type="submit" className="btn btn-light">Comprar</button>
-                            </Link>
+                            
+                                <button type="submit" className="btn btn-light" onClick={goForPurchase}>Comprar</button>
+                            
 
                         </div>
 

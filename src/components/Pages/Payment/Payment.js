@@ -131,8 +131,19 @@ const Payment = () => {
 
                     {paymentIsVisible && (
                         <>
-                            <form className="Payment-Form">
-                                ""
+                            <form className="row m-auto Payment-Form">
+                                <h3>Forma de pagamento</h3>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <div className="">
+                                        <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked></input>
+                                        <label className="btn btn-outline-primary" htmlFor="btnradio1">Cartão</label>
+                                    </div>
+                                    <div className="">
+                                        <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" checked></input>
+                                        <label className="btn btn-outline-primary" htmlFor="btnradio2"></label>
+                                    </div>
+                                </div>
+
                             </form>
                         </>
                     )}
