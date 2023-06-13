@@ -364,7 +364,7 @@ p.Product-Price {
   direction: rtl;
 }
 
-.Purchase-Btn>button {
+.Purchase-Btn > button {
   background-color: #729c47;
   border: 1px solid #afda84;
   margin-top: 10px

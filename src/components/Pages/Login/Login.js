@@ -48,20 +48,22 @@ export default function Login(props) {
             <div className="Login-form-content">
               <h3 className="Login-form-title">Sign In</h3>
               <div className="form-group mt-3">
-                <label>Email address</label>
+                <label htmlFor="emailid">Email address</label>
                 <input
                   type="email"
                   className="form-control mt-1"
+                  id="emailid"
                   placeholder="Enter email"
                   value={emailValue}
                   onChange={handleEmailChange}
                 />
               </div>
               <div className="form-group mt-3">
-                <label>Password</label>
+                <label htmlFor="passid">Password</label>
                 <input
                   type="password"
                   className="form-control mt-1"
+                  id="passid"
                   placeholder="Enter password"
                   value={passwordValue}
                   onChange={handlePasswordChange}

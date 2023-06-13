@@ -1,27 +1,28 @@
-
-
-.Container-Center{
+.Container-Center {
     width: 600px;
     height: auto;
     max-width: 100%;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 5px 5px;
+
     border-radius: 8px;
     background-color: white;
 }
-.Delivery-Or-Withdrawal{
+
+.Delivery-Or-Withdrawal {
     width: 100%;
-    height: 100%;  
-    
-    
+    height: 100%;
+
+
 }
-.Delivery-Or-Withdrawal-Btns{
+
+.Delivery-Or-Withdrawal-Btns {
     width: 100%;
     height: 100%;
     text-align: center;
 }
-.Delivery-Or-Withdrawal-Btns > div > button {
+
+.Delivery-Or-Withdrawal-Btns>div>button {
     width: 80%;
     height: 0;
     margin: 15% 0;
@@ -29,33 +30,128 @@
     box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.086);
 }
 
-.Delivery-Btn button{
+.Delivery-Btn button {
     background: black url("../../../imagens/delivery.PNG") no-repeat center center;
     background-size: cover;
 }
-.Withdrawal-Btn button{
+
+.Withdrawal-Btn button {
     background: black url("../../../imagens/retirada.png") no-repeat center center;
     background-size: cover;
-    
+
 }
 
 /* estilo das coisas referentes a localização */
-.Location-Form{
+.Location-Form {
     width: 100%;
     margin: auto;
 }
-.Location-Form > div >input{
+
+.Location-Form>div>input {
     width: 100%;
 }
-.Location-Form > div >label{
+
+.Location-Form>div>label {
     width: 100%;
     margin-top: 10px;
 }
 
-.Proceed-Btn{
+.Proceed-Btn {
     width: 100%;
-    
     text-align: right;
 }
 
+/* Coisas referentes a parte de pagamento */
 
+.Container-Card-Or-Money {
+    width: 100%;
+
+}
+
+.Container-Money-Change {
+    width: auto;
+    border-radius: 10px;
+    margin-right: 12px;
+    float: right;
+
+}
+
+.Container-Money-Change>input {
+    width: 140px;
+
+}
+
+/* Coissas da opção de cartão */
+.Container-Card {
+    border-right: 1px solid rgb(133, 132, 132);
+    border-radius: 10px;
+}
+.Exit-btn{
+    width: 100%;
+    direction: rtl;
+    
+}
+
+
+.Add-And-Delete-Card-Btn {
+    text-align: end;
+
+}
+
+.Card-Container {
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.081);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.Card {
+    width: 90%;
+    height: auto;
+    border: 1px solid black;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #612F74;
+    padding: 8px;
+
+}
+.Card-Chip{
+    width: 40px;
+    max-width: 17%;
+    background:  url("../../../imagens/chip.png") no-repeat center center;
+    background-size: 100%;
+}
+.Card-Name{
+    text-align: center;
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.959);
+}
+.Card-Bank{
+    width: 100%;
+    direction: rtl;
+}
+.Card-Bank img{
+    width: 35px;
+    margin: 13% 1px 0px 0px;
+}
+.Card-Flag{
+    width: 50%;
+}
+.Card-Flag img{
+    width: 50%;
+    margin-left: 15px;
+}
+
+.Create-Card{
+    width: 600px;
+    height: auto;
+    max-width: 100%;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: white;
+}
+.Small-Inputs-Card > input{
+    width: 70px;
+    
+}

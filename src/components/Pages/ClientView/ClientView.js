@@ -351,12 +351,12 @@ function ClientView() {
     }
 
     //Botão de ir para compra caso o carrinho não esteja vazio 
-    const goForPurchase = () =>{
+    const goForPurchase = () => {
 
-        if(allItems.length >= 1){
+        if (allItems.length >= 1) {
             navigate('/payment');
-        } else{
-            window.alert("Carrinho está vazio")
+        } else {
+            window.alert("O Carrinho está vazio")
         }
     }
 
@@ -365,7 +365,7 @@ function ClientView() {
         color: backgroundDrinkColor,
         animationName: drinkAnimReplay
     }
-    //
+    //W
     const FruitStyle = {
         backgroundImage: `url(${fruitImg})`
     }
@@ -444,9 +444,11 @@ function ClientView() {
                                 <p>Valor Total: {formattedFinalTotalAmount}</p>
                             </div>
 
-                            
+
+                            <div className="Purchase-Btn">
                                 <button type="submit" className="btn btn-light" onClick={goForPurchase}>Comprar</button>
-                            
+                            </div>
+
 
                         </div>
 
