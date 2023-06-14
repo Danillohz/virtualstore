@@ -83,31 +83,36 @@
 
 /* Coissas da opção de cartão */
 .Container-Card {
+    width: 100%;
+    height: 100%;
     border-right: 1px solid rgb(133, 132, 132);
     border-radius: 10px;
-}
-.Exit-btn{
-    width: 100%;
-    direction: rtl;
     
 }
 
+.Exit-btn {
+    width: 100%;
+    direction: rtl;
 
-.Add-And-Delete-Card-Btn {
+}
+
+
+.Card-Buttons {
     text-align: end;
 
 }
 
 .Card-Container {
-    height: auto;
     border: 1px solid rgba(0, 0, 0, 0.081);
     border-radius: 10px;
     padding: 10px;
 }
 
-.Card {
+.Card-Front {
+    position: relative;
     width: 90%;
-    height: auto;
+    max-width: 300px;
+    height: 23vh;
     border: 1px solid black;
     margin: auto;
     border-radius: 10px;
@@ -115,34 +120,44 @@
     padding: 8px;
 
 }
-.Card-Chip{
-    width: 40px;
-    max-width: 17%;
-    background:  url("../../../imagens/chip.png") no-repeat center center;
-    background-size: 100%;
-}
-.Card-Name{
-    text-align: center;
-    margin-top: 15px;
-    color: rgba(255, 255, 255, 0.959);
-}
-.Card-Bank{
-    width: 100%;
-    direction: rtl;
-}
-.Card-Bank img{
-    width: 35px;
-    margin: 13% 1px 0px 0px;
-}
-.Card-Flag{
-    width: 50%;
-}
-.Card-Flag img{
-    width: 50%;
-    margin-left: 15px;
+
+.Card-Chip {
+    position: absolute;
+    width: 20%;
+    max-width: 40px;
+    height: auto;
+
 }
 
-.Create-Card{
+.Card-Name {
+    position: absolute;
+    margin-top: 15px;
+    top: 50%;
+    left: 10%;
+    color: rgba(255, 255, 255, 0.959);
+    transform: translate(0%, -50%);
+}
+
+.Card-Bank {
+    width: 20%;
+    max-width: 45px;
+    height: auto;
+    margin: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.Card-Flag {
+    position: absolute;
+    width: 30%;
+    max-width: 70px;
+    height: auto;
+    right: 10px;
+
+}
+
+.Create-Card {
     width: 600px;
     height: auto;
     max-width: 100%;
@@ -151,7 +166,84 @@
     border-radius: 8px;
     background-color: white;
 }
-.Small-Inputs-Card > input{
+
+.Small-Inputs-Card>input {
     width: 70px;
+
+}
+
+.Back-Card {
+    position: relative;
+    width: 90%;
+    max-width: 300px;
+    height: 23vh;
+    border: 1px solid black;
+    margin: auto;
+    border-radius: 10px;
+    background-color: #612F74;
     
+
+}
+.Black-Line {
+    width: 100%;
+    height:6vh;
+    background-color: rgb(12, 12, 12);
+    border-radius: 10px 10px 0px 0px;
+}
+.Back-Card > p{
+    color: rgb(240, 240, 240);
+}
+.Back-Card > div > p{
+    color: rgb(240, 240, 240);
+    font-size: 16px;
+}
+.Data{
+    color: white;
+    font-size: 12px;
+}
+.Data-Titles{
+    font-size: 7px;
+    color: white;
+    
+}
+.Data-Inverse{
+    position: absolute;
+    right: 10px;
+    bottom:10px;
+}
+
+/* Wallet */
+.Container-Wallet{
+    position: relative;
+    width: 61%;
+    max-width: 290px;
+    height: auto;
+    
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding: 5px 5px;
+
+    border-radius: 8px;
+    background-color: white;
+}
+.Card-Slots{
+    width: 100%;
+    height: 100%;
+
+}
+.Card-Slot{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 3px;
+}
+.Card-Slot img{
+    width: 100%;
+}
+.Card-Slot > p{
+    position: absolute;
+    top: -4px;
+    right: 5px;
+    font-size: 20px;
 }

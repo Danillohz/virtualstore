@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import './Payment.css'
 
+import cardChip from "../../../imagens/chip.png"
+import card from "../../../imagens/card.png"
+
+import imgInte from "../../../imagens/interrogação.png"
+import imgVazia from "../../../imagens/Fundo-transparente.png"
 import nubankLogo from "../../../imagens/bancos/nubanklogo.png"
 import bdbLogo from "../../../imagens/bancos/bdbLogo.png"
 import bradescoLogo from "../../../imagens/bancos/bradescoLogo.png"
@@ -10,8 +15,13 @@ import sanatanderLogo from "../../../imagens/bancos/santanderLogo.png"
 import panLogo from "../../../imagens/bancos/panLogo.png"
 
 import mastercardLogo from "../../../imagens/bancos/Bandeiras/mastercardLogo.png"
+import eloLogo from "../../../imagens/bancos/Bandeiras/eloLogo.png"
+import visaLogo from "../../../imagens/bancos/Bandeiras/visaLogo.png"
 
-let numberId = 0;
+
+let numberId = 1;
+let itemName = "Card" + 1;
+let MMAA;
 
 const Payment = () => {
 
@@ -19,18 +29,22 @@ const Payment = () => {
     const [stockValue, setStockValue] = useState("");
 
     const [cardNumberValue, setCardNumberValue] = useState("");
-    const [cardValidityValue, setCardValidityValue] = useState("");
+    const [cardValidityMMValue, setCardValidityValue] = useState("");
+    const [cardValidityAAValue, setCardValidityAAValue] = useState("");
     const [cvvCardValue, setCvvCardValue] = useState("");
     const [cardNameValue, setCardNameValue] = useState("");
     const [flagCardValue, setFlagCardValue] = useState("");
     const [bankCardValue, setBankCardValue] = useState("");
 
-    const [imgBankLogo, setImgBankLogo] = useState("");
-    const [imgFlagLogo, setimgFlagLogo] = useState("");
+    const [imgBankLogo, setImgBankLogo] = useState(imgVazia);
+    const [imgFlagLogo, setimgFlagLogo] = useState(imgVazia);
 
     const [deliveryIsVisible, setDeliveryIsVisible] = useState(true);
     const [locationIsVisible, setLocationIsVisible] = useState(false);
     const [paymentIsVisible, setPaymentIsVisible] = useState(false);
+    const [cardSideIsVisible, setCardSideIsVisible] = useState(true);
+    const [walletIsVisible, setWalletIsVisible] = useState(false);
+    const [cardIsVisible, setCardIsVisible] = useState("1");
 
     const [createCardIsVisible, setCreateCardIsVisible] = useState(false)
 
@@ -113,8 +127,11 @@ const Payment = () => {
     const handleCardNumber = (event) => {
         setCardNumberValue(event.target.value)
     }
-    const handleValidityValue = (event) => {
+    const handleValidityMMValue = (event) => {
         setCardValidityValue(event.target.value)
+    }
+    const handleValidityAAValue = (event) => {
+        setCardValidityAAValue(event.target.value)
     }
     const handleCvvValue = (event) => {
         setCvvCardValue(event.target.value)
@@ -124,13 +141,32 @@ const Payment = () => {
     }
     const handleFlagValue = (event) => {
         setFlagCardValue(event.target.value)
+
+        //Muda a bandeira do cartão
+        switch (event.target.value) {
+            case "Mastercard":
+                setimgFlagLogo(mastercardLogo)
+                break
+            case "Visa":
+                setimgFlagLogo(visaLogo)
+                break
+            case "Elo":
+                setimgFlagLogo(eloLogo)
+                break
+            case "Outra":
+                setimgFlagLogo(imgInte)
+                break
+            default:
+                setimgFlagLogo(imgVazia)
+                break
+        }
     }
     const handleBankValue = (event) => {
-
         setBankCardValue(event.target.value)
 
         //Muda a logo de banco do cartão
         switch (event.target.value) {
+
             case "PAN":
                 setImgBankLogo(panLogo)
 
@@ -160,38 +196,74 @@ const Payment = () => {
 
                 break
             case "Outro":
-                setImgBankLogo(nubankLogo)
+                setImgBankLogo(imgInte)
 
                 break
 
             default:
+                setimgFlagLogo(imgVazia)
                 break
         }
 
 
     }
+    //arruma a validade
+    const validateMMAA = () => {
+        MMAA = cardValidityMMValue + "/" + cardValidityAAValue
+    }
 
     //Cria um novo cartão
     const handleCreateCard = () => {
 
+        if (allItems.length < 4) {
+            validateMMAA()
 
-        console.log(imgBankLogo)
+            const item = {
+                id: numberId,
+                cardNumber: cardNumberValue,
+                cardValidity: MMAA,
+                cvvCard: cvvCardValue,
+                cardName: cardNameValue,
+                flagCard: imgFlagLogo,
+                bankCard: imgBankLogo,
 
-        const item = {
-            id: numberId,
-            cardNumber: cardNumberValue,
-            cardValidity: cardValidityValue,
-            cvvCard: cvvCardValue,
-            cardName: cardNameValue,
-            flagCard: flagCardValue,
-            bankCard: imgBankLogo,
+            };
+            console.log(itemName)
+            setAllItems([...allItems, item]);
+            setStockValue(stockValue - item.price);
 
-        };
-        console.log(imgBankLogo)
-        setAllItems([...allItems, item]);
-        setStockValue(stockValue - item.price);
+            numberId = numberId + 1
+            itemName = `Card` + numberId
+            
+        }
+        else {
+            console.log(allItems)
+            window.alert("Número de cartões Excedido")
+        }
+    }
+    const changeFirstCard = () =>{
+        setWalletIsVisible(!walletIsVisible)
+        setCardIsVisible("1")
+        changeCardVisible();
+        
+    }
+    const changeSecondCard = () =>{
+        setWalletIsVisible(!walletIsVisible)
+        setCardIsVisible("2")
+    }
+    const changeThirdCard = () =>{
+        setWalletIsVisible(!walletIsVisible)
+        setCardIsVisible("3")
+    }
+    const changeFourthCard = () =>{
+        setWalletIsVisible(!walletIsVisible)
+        setCardIsVisible("4")
+    }
 
-        numberId = numberId + 1
+    const changeCardVisible = () =>{
+        if(cardIsVisible === 1){
+          
+        } 
     }
 
     return (
@@ -293,32 +365,71 @@ const Payment = () => {
                                                     <div className="row m-auto Container-Card">
                                                         <div className="col-sm-10">
                                                             <div className="Card-Container">
+
                                                                 {allItems.map(item => (
-                                                                    <div key={item.id}>
-                                                                        <div className="Card">
-                                                                            <div className="d-flex">
-                                                                                <div className="Card-Chip"></div>
-                                                                                <div className="Card-Flag"><img src={mastercardLogo} alt="flag"></img></div>
+                                                                    <div key={item.id} >
+                                                                        
+                                                                        <div>
+                                                                            <div className="Card">
+                                                                                {cardSideIsVisible && (
+                                                                                    <div className="Card-Front">
+                                                                                        <img className="Card-Chip" src={cardChip} alt=""></img>
+                                                                                        <img className="Card-Flag" src={item.flagCard} alt="flag"></img>
+                                                                                        <div className="Card-Name">
+                                                                                            <p className="">{item.cardName}</p>
+                                                                                        </div>
+                                                                                        <img className="Card-Bank" src={item.bankCard} alt="bank"></img>
+                                                                                    </div>
+                                                                                )}
+                                                                                {!cardSideIsVisible && (
+                                                                                    <div className="Back-Card">
+                                                                                        <div className="Black-Line"></div>
+                                                                                        <div className="ms-1">
+                                                                                            <p className="m-2">{item.cardNumber}</p>
+                                                                                            <div className="row Data-Inverse">
+                                                                                                <div className="col-5">
+                                                                                                    <p className="m-auto Data-Titles">validade</p>
+                                                                                                    <p className="Data m-auto">{item.cardValidity}</p>
+                                                                                                </div>
+                                                                                                <div className="col">
+                                                                                                    <p className="m-auto Data-Titles">cvv</p>
+                                                                                                    <p className="Data m-auto">{item.cvvCard}</p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                )}
                                                                             </div>
-                                                                            <div className="Card-Name"><p className="m-auto">{item.cardName}</p></div>
-                                                                            <div className="Card-Bank"><img src={item.bankCard} alt="bank"></img></div>
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                 ))}
                                                             </div>
                                                         </div>
                                                         <div className="col-sm-1">
-                                                            <div className="Add-And-Delete-Card-Btn">
-                                                                <button className="btn btn-light me-2 mt-1 mb-1" onClick={() => { setCreateCardIsVisible(!createCardIsVisible) }}><span className="material-symbols-outlined">
+
+                                                            <div className="Card-Buttons mt-1 z-1">
+
+                                                                <button className="btn btn-light" onClick={() => { setCreateCardIsVisible(!createCardIsVisible) }}><span className="material-symbols-outlined">
                                                                     add_card
                                                                 </span></button>
-                                                                <button className="btn btn-light m-auto"><span className="material-symbols-outlined">
+
+                                                                <button className="btn btn-light "><span className="material-symbols-outlined">
                                                                     credit_card_off
+                                                                </span></button>
+
+                                                                <button className="btn btn-light" onClick={() => { setCardSideIsVisible(!cardSideIsVisible) }}><span class="material-symbols-outlined">
+                                                                    reopen_window
+                                                                </span></button>
+
+                                                                <button className="btn btn-light" onClick={() => { setWalletIsVisible(!walletIsVisible) }}><span class="material-symbols-outlined">
+                                                                    cards
                                                                 </span></button>
 
                                                             </div>
                                                         </div>
 
+                                                        {/* Add Card  */}
                                                         {createCardIsVisible && (
                                                             <div className="row m-auto position-absolute top-50 start-50 translate-middle Create-Card">
 
@@ -335,10 +446,10 @@ const Payment = () => {
                                                                 <div className="col mt-2">
                                                                     <label className="" htmlFor="Validity-Id">Validade</label>
                                                                     <div className=" d-flex Small-Inputs-Card">
-                                                                        <input type="number" className="form-control" id="Validity-Id" placeholder="MM" min={1} value={cardValidityValue} onChange={handleValidityValue}></input>
+                                                                        <input type="number" className="form-control" id="Validity-Id" placeholder="MM" min={1} max={12} value={cardValidityMMValue} onChange={handleValidityMMValue}></input>
 
 
-                                                                        <input type="number" className="ms-2 form-control" id="Validity-Id" placeholder="AA" min={20}></input>
+                                                                        <input type="number" className="ms-2 form-control" id="Validity-Id" placeholder="AA" min={20} value={cardValidityAAValue} onChange={handleValidityAAValue}></input>
                                                                     </div>
                                                                 </div>
 
@@ -383,7 +494,29 @@ const Payment = () => {
 
                                                             </div>
                                                         )}
-
+                                                        {walletIsVisible && (
+                                                            <div className="position-absolute top-50 start-50 translate-middle Container-Wallet">
+                                                                <div className="row m-auto Card-Slots">
+                                                                    <button className="col btn btn-light Card-Slot" onClick={changeFirstCard}>
+                                                                        <img src={card} alt="Card"></img>
+                                                                        <p className="m-auto">1</p>
+                                                                    </button>
+                                                                    <button className="col btn btn-light Card-Slot" onClick={changeSecondCard}>
+                                                                        <img src={card} alt="Card"></img>
+                                                                        <p className="m-auto">2</p>
+                                                                    </button>
+                                                                    <div></div>
+                                                                    <button className="col btn btn-light Card-Slot" onClick={changeThirdCard}>
+                                                                        <img src={card} alt="Card"></img>
+                                                                        <p className="m-auto">3</p>
+                                                                    </button>
+                                                                    <button className="col btn btn-light Card-Slot" onClick={changeFourthCard}>
+                                                                        <img src={card} alt="Card"></img>
+                                                                        <p className="m-auto">4</p>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </>
@@ -395,7 +528,7 @@ const Payment = () => {
                     )}
 
                 </div>
-            </main>
+            </main >
         </>
     )
 }
