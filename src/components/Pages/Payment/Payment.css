@@ -116,7 +116,7 @@
     border: 1px solid black;
     margin: auto;
     border-radius: 10px;
-    background-color: #612F74;
+    
     padding: 8px;
 
 }
@@ -172,6 +172,12 @@
 
 }
 
+.Color-Card-Input > input{
+    width: 100%;
+    max-width: 100px;
+    height: 10vh;
+}
+
 .Back-Card {
     position: relative;
     width: 90%;
@@ -180,7 +186,7 @@
     border: 1px solid black;
     margin: auto;
     border-radius: 10px;
-    background-color: #612F74;
+    
     
 
 }
@@ -214,16 +220,14 @@
 
 /* Wallet */
 .Container-Wallet{
-    position: relative;
-    width: 61%;
-    max-width: 290px;
-    height: auto;
-    
+    width: 80%;
+    height: 50px;
+    margin: auto;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     padding: 5px 5px;
 
     border-radius: 8px;
-    background-color: white;
+    
 }
 .Card-Slots{
     width: 100%;
@@ -233,17 +237,30 @@
 .Card-Slot{
     position: relative;
     width: 100%;
-    height: 100%;
+    
     border: 1px solid black;
     border-radius: 10px;
-    margin: 3px;
+    margin: 2px;
+    background: transparent url("../../../imagens/card.png") no-repeat center center;
+    background-size: contain;
+    
 }
 .Card-Slot img{
     width: 100%;
+    
 }
 .Card-Slot > p{
     position: absolute;
     top: -4px;
     right: 5px;
     font-size: 20px;
+    
+}
+.Checkout{
+    width: 100%;
+    direction: rtl;
+}
+.Checkout > button {
+    background-color: #9ed2e8;
+    
 }

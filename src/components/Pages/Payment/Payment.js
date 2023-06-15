@@ -20,8 +20,10 @@ import visaLogo from "../../../imagens/bancos/Bandeiras/visaLogo.png"
 
 
 let numberId = 1;
-let itemName = "Card" + 1;
 let MMAA;
+
+let cardIsVisible
+let firstCardName = "Card"
 
 const Payment = () => {
 
@@ -29,12 +31,13 @@ const Payment = () => {
     const [stockValue, setStockValue] = useState("");
 
     const [cardNumberValue, setCardNumberValue] = useState("");
-    const [cardValidityMMValue, setCardValidityValue] = useState("");
+    const [cardValidityMMValue, setCardValidityMMValue] = useState("");
     const [cardValidityAAValue, setCardValidityAAValue] = useState("");
     const [cvvCardValue, setCvvCardValue] = useState("");
     const [cardNameValue, setCardNameValue] = useState("");
     const [flagCardValue, setFlagCardValue] = useState("");
     const [bankCardValue, setBankCardValue] = useState("");
+    const [colorCardValue, setColorCardValue] = useState("#4c0677")
 
     const [imgBankLogo, setImgBankLogo] = useState(imgVazia);
     const [imgFlagLogo, setimgFlagLogo] = useState(imgVazia);
@@ -44,7 +47,6 @@ const Payment = () => {
     const [paymentIsVisible, setPaymentIsVisible] = useState(false);
     const [cardSideIsVisible, setCardSideIsVisible] = useState(true);
     const [walletIsVisible, setWalletIsVisible] = useState(false);
-    const [cardIsVisible, setCardIsVisible] = useState("1");
 
     const [createCardIsVisible, setCreateCardIsVisible] = useState(false)
 
@@ -124,11 +126,14 @@ const Payment = () => {
 
     //altera os valores dos input relacionados ao cartão
 
+    const handleColorCard = (event) =>{
+        setColorCardValue(event.target.value)
+    }
     const handleCardNumber = (event) => {
         setCardNumberValue(event.target.value)
     }
     const handleValidityMMValue = (event) => {
-        setCardValidityValue(event.target.value)
+        setCardValidityMMValue(event.target.value)
     }
     const handleValidityAAValue = (event) => {
         setCardValidityAAValue(event.target.value)
@@ -215,55 +220,88 @@ const Payment = () => {
     //Cria um novo cartão
     const handleCreateCard = () => {
 
-        if (allItems.length < 4) {
-            validateMMAA()
+        if (cardNumberValue !== "" && cardValidityAAValue !== "" && cardValidityMMValue !== "" && cvvCardValue !== "" && cardNameValue !== "") {
+            if (allItems.length < 4) {
+                validateMMAA()
 
-            const item = {
-                id: numberId,
-                cardNumber: cardNumberValue,
-                cardValidity: MMAA,
-                cvvCard: cvvCardValue,
-                cardName: cardNameValue,
-                flagCard: imgFlagLogo,
-                bankCard: imgBankLogo,
+                const item = {
+                    id: numberId,
+                    cardNumber: cardNumberValue,
+                    cardValidity: MMAA,
+                    cvvCard: cvvCardValue,
+                    cardName: cardNameValue,
+                    flagCard: imgFlagLogo,
+                    bankCard: imgBankLogo,
+                    className: firstCardName,
+                    colorCard: colorCardValue
 
-            };
-            console.log(itemName)
-            setAllItems([...allItems, item]);
-            setStockValue(stockValue - item.price);
+                };
 
-            numberId = numberId + 1
-            itemName = `Card` + numberId
-            
+                setAllItems([...allItems, item]);
+                setStockValue(stockValue - item.price);
+
+                numberId = numberId + 1
+                firstCardName = "d-none Card"
+                console.log(allItems)
+
+                setCardNumberValue("")
+                setCardValidityMMValue("")
+                setCardValidityAAValue("")
+                setCardNameValue("")
+                setFlagCardValue("")
+                setBankCardValue("")
+                setCreateCardIsVisible(false)
+            }
+            else {
+
+                window.alert("Número de cartões Excedido")
+            }
         }
         else {
-            console.log(allItems)
-            window.alert("Número de cartões Excedido")
+            window.alert("Dados não preenchidos")
         }
     }
-    const changeFirstCard = () =>{
-        setWalletIsVisible(!walletIsVisible)
-        setCardIsVisible("1")
+    //deleta o item que está aparecendo
+    const handleDeleteItem = () => {
+        const itemsToKeep = allItems.filter(item => item.className === "d-none Card");
+        setAllItems(itemsToKeep)
+    }
+    //Muda o cartão escolhido
+    const changeFirstCard = () => {
+        cardIsVisible = 0;
         changeCardVisible();
-        
+
     }
-    const changeSecondCard = () =>{
-        setWalletIsVisible(!walletIsVisible)
-        setCardIsVisible("2")
+    const changeSecondCard = () => {
+        cardIsVisible = 1;
+        changeCardVisible();
+
     }
-    const changeThirdCard = () =>{
-        setWalletIsVisible(!walletIsVisible)
-        setCardIsVisible("3")
+    const changeThirdCard = () => {
+        cardIsVisible = 2
+        changeCardVisible();
+
     }
-    const changeFourthCard = () =>{
-        setWalletIsVisible(!walletIsVisible)
-        setCardIsVisible("4")
+    const changeFourthCard = () => {
+        cardIsVisible = 3
+        changeCardVisible();
+
     }
 
-    const changeCardVisible = () =>{
-        if(cardIsVisible === 1){
-          
-        } 
+    const changeCardVisible = () => {
+
+        console.log()
+        const updatedItems = allItems.map((item, index) => {
+            if (index === cardIsVisible) {
+                return { ...item, className: 'Card' }; // Substitua 'new-class-1' pelo valor desejado para o primeiro item
+            } else {
+                return { ...item, className: 'd-none Card' }; // Substitua 'new-class-2' pelo valor desejado para os demais itens
+            }
+        });
+        setAllItems(updatedItems);
+        setWalletIsVisible(false);
+        console.log(allItems)
+
     }
 
     return (
@@ -358,6 +396,8 @@ const Payment = () => {
                                                         <input type="number" className="form-control form-control-sm"></input>
                                                     </div>
                                                 </div>
+
+
                                             </>)}
                                         {checkedCard && (
                                             <>
@@ -366,23 +406,55 @@ const Payment = () => {
                                                         <div className="col-sm-10">
                                                             <div className="Card-Container">
 
-                                                                {allItems.map(item => (
+                                                                {walletIsVisible && (
+                                                                    <div className="z-0 Container-Wallet">
+                                                                        <div className="row m-auto Card-Slots">
+                                                                            {allItems.length > 1 && (
+                                                                                <button className="col btn btn-light Card-Slot" onClick={changeFirstCard}>
+
+                                                                                    <p className="m-auto">1</p>
+                                                                                </button>
+                                                                            )}
+                                                                            {allItems.length > 1 && (
+                                                                                <button className="col btn btn-light Card-Slot" onClick={changeSecondCard}>
+
+                                                                                    <p className="m-auto">2</p>
+                                                                                </button>
+                                                                            )}
+                                                                            {allItems.length > 2 && (
+                                                                                <button className="col btn btn-light Card-Slot" onClick={changeThirdCard}>
+
+                                                                                    <p className="m-auto">3</p>
+                                                                                </button>
+                                                                            )}
+                                                                            {allItems.length > 3 && (
+                                                                                <button className="col btn btn-light Card-Slot" onClick={changeFourthCard}>
+
+                                                                                    <p className="m-auto">4</p>
+                                                                                </button>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+
+                                                                {allItems.map((item) => (
                                                                     <div key={item.id} >
-                                                                        
+
+
                                                                         <div>
-                                                                            <div className="Card">
+                                                                            <div className={`Card ${item.className}`}>
                                                                                 {cardSideIsVisible && (
-                                                                                    <div className="Card-Front">
+                                                                                    <div className="Card-Front" style={{backgroundColor: item.colorCard}}>
                                                                                         <img className="Card-Chip" src={cardChip} alt=""></img>
                                                                                         <img className="Card-Flag" src={item.flagCard} alt="flag"></img>
                                                                                         <div className="Card-Name">
-                                                                                            <p className="">{item.cardName}</p>
+                                                                                            <p>{item.cardName}</p>
                                                                                         </div>
                                                                                         <img className="Card-Bank" src={item.bankCard} alt="bank"></img>
                                                                                     </div>
                                                                                 )}
                                                                                 {!cardSideIsVisible && (
-                                                                                    <div className="Back-Card">
+                                                                                    <div className="Back-Card" style={{backgroundColor: item.colorCard}}>
                                                                                         <div className="Black-Line"></div>
                                                                                         <div className="ms-1">
                                                                                             <p className="m-2">{item.cardNumber}</p>
@@ -401,7 +473,7 @@ const Payment = () => {
                                                                                 )}
                                                                             </div>
                                                                         </div>
-                                                                        
+
                                                                     </div>
                                                                 ))}
                                                             </div>
@@ -414,20 +486,21 @@ const Payment = () => {
                                                                     add_card
                                                                 </span></button>
 
-                                                                <button className="btn btn-light "><span className="material-symbols-outlined">
+                                                                <button className="btn btn-light " onClick={handleDeleteItem}><span className="material-symbols-outlined">
                                                                     credit_card_off
                                                                 </span></button>
 
-                                                                <button className="btn btn-light" onClick={() => { setCardSideIsVisible(!cardSideIsVisible) }}><span class="material-symbols-outlined">
+                                                                <button className="btn btn-light" onClick={() => { setCardSideIsVisible(!cardSideIsVisible) }}><span className="material-symbols-outlined">
                                                                     reopen_window
                                                                 </span></button>
 
-                                                                <button className="btn btn-light" onClick={() => { setWalletIsVisible(!walletIsVisible) }}><span class="material-symbols-outlined">
+                                                                <button className="btn btn-light" onClick={() => { setWalletIsVisible(!walletIsVisible) }}><span className="material-symbols-outlined">
                                                                     cards
                                                                 </span></button>
 
                                                             </div>
                                                         </div>
+
 
                                                         {/* Add Card  */}
                                                         {createCardIsVisible && (
@@ -449,7 +522,7 @@ const Payment = () => {
                                                                         <input type="number" className="form-control" id="Validity-Id" placeholder="MM" min={1} max={12} value={cardValidityMMValue} onChange={handleValidityMMValue}></input>
 
 
-                                                                        <input type="number" className="ms-2 form-control" id="Validity-Id" placeholder="AA" min={20} value={cardValidityAAValue} onChange={handleValidityAAValue}></input>
+                                                                        <input type="number" className="ms-2 form-control" id="Validity-Id" placeholder="AA" min={20} max={90} value={cardValidityAAValue} onChange={handleValidityAAValue}></input>
                                                                     </div>
                                                                 </div>
 
@@ -487,41 +560,29 @@ const Payment = () => {
                                                                         <option value="Outro">Outro</option>
                                                                     </select>
                                                                 </div>
-                                                                <div>
-                                                                    <button className='btn btn-light mt-2' onClick={handleCreateCard} >Adicionar</button>
+                                                                <div></div>
+                                                                <div className="col mt-2 Color-Card-Input">
+                                                                    <label htmlFor="Color-Card-Id">Cor do cartão</label>
+                                                                    <input type="color" className="form-control Color-Card" id="Color-Card-Id" value={colorCardValue} onChange={handleColorCard}></input>
+                                                                </div>
+                                                                <div className='col'>
+                                                                    <button className='btn btn-light mt-4' onClick={handleCreateCard} >Adicionar</button>
                                                                 </div>
 
 
                                                             </div>
                                                         )}
-                                                        {walletIsVisible && (
-                                                            <div className="position-absolute top-50 start-50 translate-middle Container-Wallet">
-                                                                <div className="row m-auto Card-Slots">
-                                                                    <button className="col btn btn-light Card-Slot" onClick={changeFirstCard}>
-                                                                        <img src={card} alt="Card"></img>
-                                                                        <p className="m-auto">1</p>
-                                                                    </button>
-                                                                    <button className="col btn btn-light Card-Slot" onClick={changeSecondCard}>
-                                                                        <img src={card} alt="Card"></img>
-                                                                        <p className="m-auto">2</p>
-                                                                    </button>
-                                                                    <div></div>
-                                                                    <button className="col btn btn-light Card-Slot" onClick={changeThirdCard}>
-                                                                        <img src={card} alt="Card"></img>
-                                                                        <p className="m-auto">3</p>
-                                                                    </button>
-                                                                    <button className="col btn btn-light Card-Slot" onClick={changeFourthCard}>
-                                                                        <img src={card} alt="Card"></img>
-                                                                        <p className="m-auto">4</p>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        )}
+
                                                     </div>
                                                 </div>
                                             </>
                                         )}
+
                                     </div>
+
+                                </div>
+                                <div className="Checkout">
+                                    <button className="mt-2 me-3 btn btn-light">Finalizar compra</button>
                                 </div>
                             </form>
                         </>
