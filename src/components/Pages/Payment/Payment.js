@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import './Payment.css'
 
 import cardChip from "../../../imagens/chip.png"
-import card from "../../../imagens/card.png"
 
 import imgInte from "../../../imagens/interrogação.png"
 import imgVazia from "../../../imagens/Fundo-transparente.png"
@@ -242,7 +241,6 @@ const Payment = () => {
 
                 numberId = numberId + 1
                 firstCardName = "d-none Card"
-                console.log(allItems)
 
                 setCardNumberValue("")
                 setCardValidityMMValue("")
@@ -290,7 +288,6 @@ const Payment = () => {
 
     const changeCardVisible = () => {
 
-        console.log()
         const updatedItems = allItems.map((item, index) => {
             if (index === cardIsVisible) {
                 return { ...item, className: 'Card' }; // Substitua 'new-class-1' pelo valor desejado para o primeiro item
@@ -300,7 +297,6 @@ const Payment = () => {
         });
         setAllItems(updatedItems);
         setWalletIsVisible(false);
-        console.log(allItems)
 
     }
 
@@ -314,11 +310,11 @@ const Payment = () => {
                             <div className="row m-auto Delivery-Or-Withdrawal-Btns">
                                 <h2 className="m-auto">Entrega ou Retirada?</h2>
                                 <div className="col Delivery-Btn">
-                                    <button className="btn btn-light" onClick={() => { setDeliveryIsVisible(false); setLocationIsVisible(true) }}></button>
+                                    <button className="btn btn-light" type="button" onClick={() => { setDeliveryIsVisible(false); setLocationIsVisible(true) }}></button>
                                 </div>
 
                                 <div className="col Withdrawal-Btn">
-                                    <button className="btn btn-light" onClick={() => { setDeliveryIsVisible(false); setPaymentIsVisible(true) }}></button>
+                                    <button className="btn btn-light" type="button" onClick={() => { setDeliveryIsVisible(false); setPaymentIsVisible(true) }}></button>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +356,7 @@ const Payment = () => {
                             </form>
 
                             <div className="Proceed-Btn">
-                                <button className="m-3 btn btn-light" onClick={clickForProceed}>Prosseguir</button>
+                                <button className="m-3 btn btn-light" type="button" onClick={clickForProceed}>Prosseguir</button>
                             </div>
 
                         </>
@@ -409,26 +405,26 @@ const Payment = () => {
                                                                 {walletIsVisible && (
                                                                     <div className="z-0 Container-Wallet">
                                                                         <div className="row m-auto Card-Slots">
-                                                                            {allItems.length > 1 && (
-                                                                                <button className="col btn btn-light Card-Slot" onClick={changeFirstCard}>
+                                                                            {allItems.length > 0 && (
+                                                                                <button className="col btn btn-light Card-Slot" type="button" onClick={changeFirstCard}>
 
                                                                                     <p className="m-auto">1</p>
                                                                                 </button>
                                                                             )}
                                                                             {allItems.length > 1 && (
-                                                                                <button className="col btn btn-light Card-Slot" onClick={changeSecondCard}>
+                                                                                <button className="col btn btn-light Card-Slot" type="button" onClick={changeSecondCard}>
 
                                                                                     <p className="m-auto">2</p>
                                                                                 </button>
                                                                             )}
                                                                             {allItems.length > 2 && (
-                                                                                <button className="col btn btn-light Card-Slot" onClick={changeThirdCard}>
+                                                                                <button className="col btn btn-light Card-Slot" type="button" onClick={changeThirdCard}>
 
                                                                                     <p className="m-auto">3</p>
                                                                                 </button>
                                                                             )}
                                                                             {allItems.length > 3 && (
-                                                                                <button className="col btn btn-light Card-Slot" onClick={changeFourthCard}>
+                                                                                <button className="col btn btn-light Card-Slot" type="button" onClick={changeFourthCard}>
 
                                                                                     <p className="m-auto">4</p>
                                                                                 </button>
@@ -482,19 +478,19 @@ const Payment = () => {
 
                                                             <div className="Card-Buttons mt-1 z-1">
 
-                                                                <button className="btn btn-light" onClick={() => { setCreateCardIsVisible(!createCardIsVisible) }}><span className="material-symbols-outlined">
+                                                                <button className="btn btn-light" type="button" onClick={() => { setCreateCardIsVisible(!createCardIsVisible) }}><span className="material-symbols-outlined">
                                                                     add_card
                                                                 </span></button>
 
-                                                                <button className="btn btn-light " onClick={handleDeleteItem}><span className="material-symbols-outlined">
+                                                                <button className="btn btn-light" type="button" onClick={handleDeleteItem}><span className="material-symbols-outlined">
                                                                     credit_card_off
                                                                 </span></button>
 
-                                                                <button className="btn btn-light" onClick={() => { setCardSideIsVisible(!cardSideIsVisible) }}><span className="material-symbols-outlined">
+                                                                <button className="btn btn-light" type="button" onClick={() => { setCardSideIsVisible(!cardSideIsVisible) }}><span className="material-symbols-outlined">
                                                                     reopen_window
                                                                 </span></button>
 
-                                                                <button className="btn btn-light" onClick={() => { setWalletIsVisible(!walletIsVisible) }}><span className="material-symbols-outlined">
+                                                                <button className="btn btn-light" type="button" onClick={() => { setWalletIsVisible(!walletIsVisible) }}><span className="material-symbols-outlined">
                                                                     cards
                                                                 </span></button>
 
@@ -507,7 +503,7 @@ const Payment = () => {
                                                             <div className="row m-auto position-absolute top-50 start-50 translate-middle Create-Card">
 
                                                                 <div className="Exit-btn">
-                                                                    <button className="btn btn-danger" onClick={() => { setCreateCardIsVisible(false) }}>X</button>
+                                                                    <button className="btn btn-danger" type="button" onClick={() => { setCreateCardIsVisible(false) }}>X</button>
                                                                 </div>
 
                                                                 <div className="">
@@ -566,7 +562,7 @@ const Payment = () => {
                                                                     <input type="color" className="form-control Color-Card" id="Color-Card-Id" value={colorCardValue} onChange={handleColorCard}></input>
                                                                 </div>
                                                                 <div className='col'>
-                                                                    <button className='btn btn-light mt-4' onClick={handleCreateCard} >Adicionar</button>
+                                                                    <button className='btn btn-light mt-4' type="button" onClick={handleCreateCard} >Adicionar</button>
                                                                 </div>
 
 
@@ -582,7 +578,7 @@ const Payment = () => {
 
                                 </div>
                                 <div className="Checkout">
-                                    <button className="mt-2 me-3 btn btn-light">Finalizar compra</button>
+                                    <button className="mt-2 me-3 btn btn-light" type="submit">Finalizar compra</button>
                                 </div>
                             </form>
                         </>

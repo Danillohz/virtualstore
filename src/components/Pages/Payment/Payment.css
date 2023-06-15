@@ -220,7 +220,8 @@
 
 /* Wallet */
 .Container-Wallet{
-    width: 80%;
+    width: 100%;
+    max-width: 250px;
     height: 50px;
     margin: auto;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
@@ -251,9 +252,10 @@
 }
 .Card-Slot > p{
     position: absolute;
-    top: -4px;
-    right: 5px;
+    top: -6px;
+    left: 1px;
     font-size: 20px;
+    color: #727272;
     
 }
 .Checkout{
