@@ -246,6 +246,7 @@ const Payment = () => {
                 setCardValidityMMValue("")
                 setCardValidityAAValue("")
                 setCardNameValue("")
+                setCvvCardValue("")
                 setFlagCardValue("")
                 setBankCardValue("")
                 setCreateCardIsVisible(false)

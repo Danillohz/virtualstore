@@ -157,6 +157,7 @@
   width: 250px;
   max-width: 70%;
   margin: 0px 10px;
+  display: none;
   
 }
 
@@ -210,6 +211,7 @@
   text-align: right;
   opacity: 0;
   animation: 1s forwards ease-in-out;
+  display: none;
 }
 
 .Container-Submit button {
@@ -224,10 +226,12 @@
 @keyframes isVisibleOrNot {
   0% {
     opacity: 0;
+    display: none;
   }
 
   100% {
     opacity: 1;
+    display:block;
   }
 }
 

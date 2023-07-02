@@ -32,6 +32,8 @@ let numberId = 0;
 let itemNumber = 1;
 
 
+
+
 function ClientView() {
 
     useEffect(() => {
@@ -51,7 +53,9 @@ function ClientView() {
 
     const [isVisibleShoppingCart, setvisibleShoppingCart] = useState(false)
     const [animSecondStep, setAnimSecondStep] = useState("")
+    const [secondStepDisplay, setSecondStepDisplay] = useState("none")
     const [animThirdStep, setAnimThirdStep] = useState("")
+    const [thirdStepDisplay, setThirdStepDisplay] = useState("none")
 
     const [typeDrinkValue, setTypeDrinkValue] = useState("")
     const [fruitValue, setFruitValue] = useState("")
@@ -70,9 +74,6 @@ function ClientView() {
     const [totalOrderAmont, setTotalOrderAmont] = useState(12)
 
     //Deixa o carrinho e seus itens escolhidos visíveis.
-    const toggleVisibleShoppingCart = () => {
-        setvisibleShoppingCart(!isVisibleShoppingCart)
-    }
 
     //Muda o o valor do tipo de bebida alterando a cor do fundo do copo
     const selectTypeDrink = (event) => {
@@ -144,6 +145,7 @@ function ClientView() {
     const selectSecondFruitType = (event) => {
         setSecondFruitValue(event.target.value)
 
+       
         switch (event.target.value) {
             case "Morango":
                 // Defina a imagem de fundo para a opção "Morango"
@@ -213,7 +215,8 @@ function ClientView() {
         }
 
         AdditionalAnimReplay()
-
+        secondAdditionalEvent = event.target.value
+        selectedSelectors()
 
 
     }
@@ -234,36 +237,46 @@ function ClientView() {
         //faz surgir o segundo passo de escolha do pedido
         if (drinkEvent === undefined || fruitEvent === undefined || drinkEvent === "" || fruitEvent === "") {
             setAnimSecondStep("")
+            setSecondStepDisplay("none")
             additionalEvent = undefined
 
         } else {
             setAnimSecondStep("isVisibleOrNot")
+            setSecondStepDisplay("block")
 
         }
 
         //faz surgir o terceiro passo de escolha do pedido
         if (additionalEvent === undefined || additionalEvent === "") {
             setAnimThirdStep("")
+            setThirdStepDisplay("none")
 
 
         } else if (additionalEvent === "Nenhum") {
 
             setAnimThirdStep("isVisibleOrNot")
+            setThirdStepDisplay("block")
 
 
         } else {
             setAnimThirdStep("isVisibleOrNot")
+            setThirdStepDisplay("block")
 
 
         }
-
+       
         //Muda o preço total
-        if ((additionalEvent === "" || additionalEvent === undefined || additionalEvent === "Nenhum") && (secondAdditionalEvent === "" || secondAdditionalEvent === undefined)) {
-            setTotalOrderAmont(12);
-        } else if ((additionalEvent !== "" && additionalEvent !== undefined && additionalEvent !== "Nenhum") && (secondAdditionalEvent !== "" && secondAdditionalEvent !== undefined)) {
-            setTotalOrderAmont(16);
-        } else {
-            setTotalOrderAmont(14);
+        if((additionalEvent === "" || additionalEvent === undefined || additionalEvent === "Nenhum") && (secondAdditionalEvent === "" || secondAdditionalEvent === undefined)){
+            setTotalOrderAmont(10)
+        }
+        else if((additionalEvent === "" || additionalEvent === undefined || additionalEvent === "Nenhum") && (secondAdditionalEvent !== "" || secondAdditionalEvent !== undefined)){
+            setTotalOrderAmont(12)
+        }
+        else if((additionalEvent !== "" || additionalEvent !== undefined || additionalEvent !== "Nenhum") && (secondAdditionalEvent === "" || secondAdditionalEvent === undefined)){
+            setTotalOrderAmont(12)
+        }
+        else if(((additionalEvent !== "" || additionalEvent !== undefined || additionalEvent !== "Nenhum") && (secondAdditionalEvent !== "" || secondAdditionalEvent !== undefined))){
+            setTotalOrderAmont(16)
         }
     }
 
@@ -273,9 +286,9 @@ function ClientView() {
         currency: 'BRL'
     }).format(totalOrderAmont)
 
-    //Envia o item para o carrinho
+    //Envia o item para o carrinho 
     const handleCreateItemCart = () => {
-
+        
         if ((drinkEvent !== undefined || fruitEvent !== undefined || additionalEvent !== undefined) && fruitValue !== secondfruitValue && additionalValue !== secondAdditionalValue) {
             const item = {
                 id: numberId,
@@ -384,26 +397,26 @@ function ClientView() {
     }
     //Ativa a opacidade do segundo passo
     const visibleSecondStep = {
-        animationName: animSecondStep
+        animationName: animSecondStep,
+        display : secondStepDisplay
+        
+        
     }
     //Ativa a opacidade do terceiro e do quarto
     const visibleThirdStep = {
-        animationName: animThirdStep
+        animationName: animThirdStep,
+        display : thirdStepDisplay
     }
 
     return (
         <>
-
-
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
             <div className="Container-body-Client">
-                <LoadingScreen value={1000 * 0}></LoadingScreen>
+                <LoadingScreen value={1000 * 3}></LoadingScreen>
                 <header className="Header-Ceo">
                     <div className="position-absolute Img-Logo">
                         <img className="ms-2" src={imgLogoCaipirinha} alt="logo"></img>
                     </div>
-                    <button type="button" className="position-absolute top-0 end-0 w-1 Button-Create-Itens" onClick={toggleVisibleShoppingCart}>
+                    <button type="button" className="position-absolute top-0 end-0 w-1 Button-Create-Itens" onClick={() =>{setvisibleShoppingCart(!isVisibleShoppingCart)}}>
                         <span className="material-symbols-outlined">
                             shopping_cart
                         </span>
