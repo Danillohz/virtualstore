@@ -25,10 +25,10 @@ Aplicação web voltada para o lado do cliente. Uma loja virtual onde pode-se en
 - HTM  CSS  JavaScript 
 - React js
 - Bootstrap
-- API CEP httpsviacep.com.br
+- API CEP https://viacep.com.br/
 
 - # Autor
 
 Danillo Henrique Zezepanski
 
-httpswww.linkedin.comindanillo-henrique-zezepanski-056056239
+https://www.linkedin.com/in/danillo-henrique-zezepanski-056056239/
