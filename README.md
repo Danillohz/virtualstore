@@ -1,5 +1,5 @@
 # Virtualstore
-acesse o link aquihttpshttpsdanillohz.github.iovirtualstore
+acesse o link aqui:https://danillohz.github.io/virtualstore/
 
 # Sobre o projeto
 Aplicação web voltada para o lado do cliente. Uma loja virtual onde pode-se entrar como cliente com possibilidade de executar um pedido, escolher forma de recebimento ou até mesmo a forma de pagamento do produto (podendo criar um cartão próprio). também podendo entrar como dono com permissão para modificar seu estoque.
