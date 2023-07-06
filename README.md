@@ -8,7 +8,7 @@ Aplicação web voltada para o lado do cliente. Uma loja virtual onde pode-se en
 ![Web 1](https://github.com/Danillohz/Assets/blob/main/Imagens/Virtual-Store/login.PNG)
 
 ### Client
-![Web 2](httpsgithub.comDanillohzAssetsblobmainImagensVirtual-StoreFazerPedido.PNG)
+![Web 2](https://github.com/Danillohz/Assets/blob/main/Imagens/Virtual-Store/FazerPedido.PNG)
 ![Web 3](https://github.com/Danillohz/Assets/blob/main/Imagens/Virtual-Store/delivery.PNG)
 ![Web 4](https://github.com/Danillohz/Assets/blob/main/Imagens/Virtual-Store/Card1.PNG)
 ![Web 5](https://github.com/Danillohz/Assets/blob/main/Imagens/Virtual-Store/CreateCard.PNG)
