@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/virtualstore/static/css/main.669f3bd0.css",
-    "main.js": "/virtualstore/static/js/main.4964d0df.js",
+    "main.css": "/virtualstore/static/css/main.48c8bbc0.css",
+    "main.js": "/virtualstore/static/js/main.4733f6d1.js",
     "static/js/787.3cd53c67.chunk.js": "/virtualstore/static/js/787.3cd53c67.chunk.js",
     "static/media/fundo-folha-amarela.jpg": "/virtualstore/static/media/fundo-folha-amarela.5c4415f2aa8d3e24d57d.jpg",
     "static/media/Logo-Caipirinha-Preto-Meia.png": "/virtualstore/static/media/Logo-Caipirinha-Preto-Meia.46a48be9a4188032315a.png",
@@ -22,12 +22,12 @@
     "static/media/interrogação.png": "/virtualstore/static/media/interrogação.8a99bbe71f44461e2e06.png",
     "static/media/maracujaP.png": "/virtualstore/static/media/maracujaP.b6921199fd28a0cd9ccb.png",
     "index.html": "/virtualstore/index.html",
-    "main.669f3bd0.css.map": "/virtualstore/static/css/main.669f3bd0.css.map",
-    "main.4964d0df.js.map": "/virtualstore/static/js/main.4964d0df.js.map",
+    "main.48c8bbc0.css.map": "/virtualstore/static/css/main.48c8bbc0.css.map",
+    "main.4733f6d1.js.map": "/virtualstore/static/js/main.4733f6d1.js.map",
     "787.3cd53c67.chunk.js.map": "/virtualstore/static/js/787.3cd53c67.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.669f3bd0.css",
-    "static/js/main.4964d0df.js"
+    "static/css/main.48c8bbc0.css",
+    "static/js/main.4733f6d1.js"
   ]
 }
